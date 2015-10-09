@@ -1,5 +1,5 @@
 # Try-2-Learn
-## Proyecto PaaS para la asignatura IV 2015-26
+## Proyecto PaaS para la asignatura IV 2015-16
 ###Descripción 
 Dada la naturaleza de la asignatura el proyecto debe orientarse hacia las tecnologías
 SaaS/PaaS/IaaS, más concretamente a PaaS en este caso.
