@@ -28,5 +28,7 @@ Una vez finalizados y probados con éxito los objetivos futuros, se pretende afi
 Con intención de ello (aún pendiente de inscribir).
 
 #### Integrantes del equipo
-En un principio estoy yo sólo en el proyecto, aunque puede "forkeame/pull requestearme" quien lo desee!  
+En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requestearme" quien lo desee!  
+
+Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.com
 
