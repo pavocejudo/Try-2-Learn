@@ -1,8 +1,8 @@
 # Try-2-Learn
-## Proyecto PaaS para la asignatura IV 2015-16
+## Proyecto para la asignatura IV 2015-16
 ###Descripción 
 Dada la naturaleza de la asignatura el proyecto debe orientarse hacia las tecnologías
-SaaS/PaaS/IaaS, más concretamente a PaaS en este caso.
+SaaS/PaaS/IaaS.
 
 Try2Learn tiene como objetivo el testeo de scripts o pequeños módulos en diversos lenguajes de forma que el usuario no se tenga que preocupar de crear un entorno específico para testear sus scripts en su lenguaje favorito online.
 
