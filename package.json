@@ -1,0 +1,21 @@
+{
+    "name": "Try2Learn",
+    "description": "",
+    "version": "0.0.1",
+    "main": "./app.js",
+    "author": {
+        "name": "Jesus",
+        "email": "jesusgonzaleznovez@gmail.com"
+    },
+    "keywords": [],
+    "licenses": {
+        "type": "gpl30"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jesusgn90/Try-2-Learn.git"
+    },
+    "bugs": {
+        "url": "http://github.com/jesusgn90/Try-2-Learn/issues"
+    }
+}
