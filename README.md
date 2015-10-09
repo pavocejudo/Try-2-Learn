@@ -25,7 +25,9 @@ Una vez finalizados y probados con éxito los objetivos futuros, se pretende afi
 * Definir un posible sistema [freemium](https://es.wikipedia.org/wiki/Freemium) de uso, para mi propia explotación o la del que lo desee!
     
 #### Inscripción en el certamen de proyectos de la UGR organizado por la OSL
-Con intención de ello (aún pendiente de inscribir).
+Proyecto inscrito en el certamen de [Proyectos Libres de la UGR 2015-2016](http://osl.ugr.es/bases-de-los-premios-a-proyectos-libres-de-la-ugr/)
+
+![Inscripción](inscripcion_certamen.png]
 
 #### Integrantes del equipo
 En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requestearme" quien lo desee!  
