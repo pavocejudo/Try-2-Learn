@@ -4,10 +4,9 @@
 Dada la naturaleza de la asignatura el proyecto debe orientarse hacia las tecnologías
 SaaS/PaaS/IaaS, más concretamente a PaaS en este caso.
 
-Try2Learn tiene como objetivo el testeo de scripts o pequeño módulos en diversos lenguajes de forma que el usuario no se tenga que preocupar de crear un entorno específico para testear sus scripts en su lenguaje favorito online.
+Try2Learn tiene como objetivo el testeo de scripts o pequeños módulos en diversos lenguajes de forma que el usuario no se tenga que preocupar de crear un entorno específico para testear sus scripts en su lenguaje favorito online.
 
-###Funcionamiento:
-
+###Funcionamiento
 Try2Learn nos permite crear un entorno virtual aislado y preparado para el lenguaje de nuestra aplicación. El usuario manda su código fuente o un paquete y Try2Learn le devuelve la salida del programa compilado/interpretado.
 
 El programa se ejecutará dentro de un entorno virtualizado el cual podrá ser personalizable por el usuario.
@@ -28,4 +27,6 @@ Una vez finalizados y probados con éxito los objetivos futuros, se pretende afi
 #### Inscripción en el certamen de proyectos de la UGR organizado por la OSL
 Con intención de ello (aún pendiente de inscribir).
 
+#### Integrantes del equipo
+En un principio estoy yo sólo en el proyecto, aunque puede "forkeame/pull requestearme" quien lo desee!  
 
