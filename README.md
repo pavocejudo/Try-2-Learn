@@ -19,7 +19,7 @@ El programa se ejecutará dentro de un entorno virtualizado el cual podrá ser p
 * Comprender y comenzar a usar [Travis](https://travis-ci.org/)
 
 ####Objetivos futuros
-Una vez finalizados y probados con éxito los objetivos futuros, se pretende afinar un poco más el proyecto dando lugar a:
+Una vez finalizados y probados con éxito los objetivos iniciales, se pretende afinar un poco más el proyecto dando lugar a:
 
 * Testeo de aplicaciones web completas tipo Django o basadas en otros frameworks en entornos virtuales.
 * Definir un posible sistema [freemium](https://es.wikipedia.org/wiki/Freemium) de uso, para mi propia explotación o la del que lo desee!
