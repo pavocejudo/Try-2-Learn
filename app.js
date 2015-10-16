@@ -1,10 +1,8 @@
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(200, {
-        'Content-Type': 'text/plain; charset=UTF-8'
-    });
-    
-    res.end('Hello from Try-2-Learn.\n');
-    
-}).listen(9080, "");
-console.log("Server started...\nIP: http://localhost:9080");
+var servidor = require('./servidor'); //Importamos el módulo servidor creado
+var router = require('./router'); //Importamos el módulo router
+var manejadores = require('./manejador'); //Importamos el módulo manejador
+var manejador = {}
+manejador["/"] = manejadores.funcion_1;
+manejador["/funcion_1"] = manejadores.funcion_1;
+manejador["/funcion_2"] = manejadores.funcion_2;
+servidor.inicializar(router.route, manejador); //Llama al método inicializar del objeto servidor
