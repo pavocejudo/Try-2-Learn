@@ -2,7 +2,7 @@
     "name": "Try2Learn",
     "description": "",
     "version": "0.0.1",
-    "main": "./app.js",
+    "main": "./server.js",
     "author": {
         "name": "Jesus",
         "email": "jesusgonzaleznovez@gmail.com"
