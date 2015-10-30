@@ -1,8 +1,7 @@
 var boot = require('../server').boot,
         shutdown = require('../server').shutdown,
         port = require('../server').port,
-        request = require('request'),
-        expect = require('expect');
+        request = require('request');
     describe('Test de arrancado de servidor', function () {
         before(function () {
             boot();
