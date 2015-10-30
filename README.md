@@ -34,3 +34,15 @@ En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requ
 
 Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.com
 
+### Test e integración continua
+Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por 
+usar [mocha](https://mochajs.org/), para usarlo lo instalaremos en nuestro proyecto:
+
+    npm install mocha
+
+A continuación vamos a crear un nuevo directorio llamado test en el cual añadiremos pequeños script
+para ir probando mocha. He creado un pequeño script que lo que hace es comprobar que se carga
+ 
+
+
+
