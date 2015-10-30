@@ -42,7 +42,54 @@ usar [mocha](https://mochajs.org/), para usarlo lo instalaremos en nuestro proye
 
 A continuación vamos a crear un nuevo directorio llamado test en el cual añadiremos pequeños script
 para ir probando mocha. He creado un pequeño script que lo que hace es comprobar que se carga
+el servidor correctamente haciendo uso del método 'GET', a continuación describo el contenido de test/test1.js:
+
+    var boot = require('../server').boot,
+            shutdown = require('../server').shutdown,
+            port = require('../server').port,
+            request = require('request');
+        describe('Test de arrancado de servidor', function () {
+            before(function () {
+                boot();
+        });
+        describe('server.js', function () {
+            it('Probando método GET', function () {
+                request('http://127.0.0.1:'+port, function (error, response,body) {
+                    if (!error && response.statusCode == 200) {
+                        console.log("Server ON");
+                    }
+                });
+            })
+        });
+        after(function () {
+            shutdown();
+        });
+
+    });
  
+Para probar el test con mocha simplemente ejecutamos:
 
+    ./node_modules/mocha/bin/mocha
 
+Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
+mi cuenta de GitHub [@jesusgn90](https://github.com/jesusgn90/). Lo primero que debemos hacer es crear
+el fichero .travis.yml, en el cual he añadido lo siguiente:
+
+    build_environment: Ubuntu 14.04
+    language: node_js
+    node_js:
+      - "0.10"
+    before_install:
+      - npm install mocha
+      - npm install request
+    script:
+      - ./node_modules/mocha/bin/mocha
+
+En él indicamos que se ejecute en un entorno Ubuntu 14.04 usando el lenguaje node_js versión 0.10 y que además instale
+localmente los módulos mocha y request. Además deseamos que ejecute mocha para los test por eso indicamos que se ejecute mocha
+mediante el apartado script.
+
+Podemos ver esta captura de pantalla de Travis en la que vemos que efectivamente se ejecuta todo como se esperaba:
+
+![travis](travis-1.png)
 
