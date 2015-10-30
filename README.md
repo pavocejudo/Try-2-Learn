@@ -34,11 +34,12 @@ En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requ
 
 Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.com
 
-### Test e integración continua
+### Test, integración continua, build tools y algunos avances sobre la app
 Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por 
-usar [mocha](https://mochajs.org/), para usarlo lo instalaremos en nuestro proyecto:
+usar [mocha](https://mochajs.org/), para usarlo lo instalaremos en nuestro proyecto(--save-dev nos actualiza el 
+fichero package.json al instalar un módulo):
 
-    npm install mocha
+    npm install mocha --save-dev
 
 A continuación vamos a crear un nuevo directorio llamado test en el cual añadiremos pequeños script
 para ir probando mocha. He creado un pequeño script que lo que hace es comprobar que se carga
@@ -93,3 +94,42 @@ Podemos ver esta captura de pantalla de Travis en la que vemos que efectivamente
 
 ![travis](travis-1.png)
 
+Ahora vamos a usar [Grunt](http://gruntjs.com/), para ello vamos a instalar globalmente:
+
+    npm install -g grunt-cli
+
+Y después instalamos grunt en nuestro proyecto:
+
+    npm install grunt --save-dev
+
+Ahora crearemos un fichero llamado Gruntfile.js que es el que nos permitirá ejecutar una serie de tareas
+específicadas en dicho archivo, para nuestro ejemplo usaremos la tarea de arrancar el servidor, para ello necesitamos 
+primero instalar el módulo grunt-bg-shell, para ello:
+
+    npm install grun-bg-shell --save-dev
+
+Seguidamente editamos nuestro fichero Gruntfile.js, que queda de la siguiente forma:
+
+    module.exports = function(grunt){
+        grunt.initConfig({
+            pkg: grunt.file.readJSON('package.json'),
+            bgShell: {
+                runNode: {
+                    cmd: 'node server.js',
+                    bg: true
+                }
+            }
+        });
+        grunt.loadNpmTasks('grunt-bg-shell');
+        grunt.registerTask('server', ['bgShell:runNode']);
+    };
+
+En este fichero lo que se indica es que ejecutaremos un comando de la shell,
+en este caso 'node server.js', le decimos que nos cargue el módulo grunt-bg-shell y 
+a continuación asignamos a la tarea el alias 'server'. Para probarlo debemos usar:
+
+    grunt server
+
+En la siguiente captura podemos ver el resultado:
+
+![grunt](grunt-1.png)
