@@ -72,29 +72,8 @@ Para probar el test con mocha simplemente ejecutamos:
 
     ./node_modules/mocha/bin/mocha
 
-Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
-mi cuenta de GitHub [@jesusgn90](https://github.com/jesusgn90/). Lo primero que debemos hacer es crear
-el fichero .travis.yml, en el cual he añadido lo siguiente:
-
-    build_environment: Ubuntu 14.04
-    language: node_js
-    node_js:
-      - "0.10"
-    before_install:
-      - npm install mocha
-      - npm install request
-    script:
-      - ./node_modules/mocha/bin/mocha
-
-En él indicamos que se ejecute en un entorno Ubuntu 14.04 usando el lenguaje node_js versión 0.10 y que además instale
-localmente los módulos mocha y request. Además deseamos que ejecute mocha para los test por eso indicamos que se ejecute mocha
-mediante el apartado script.
-
-Podemos ver esta captura de pantalla de Travis en la que vemos que efectivamente se ejecuta todo como se esperaba:
-
-![travis](travis-1.png)
-
-Ahora vamos a usar [Grunt](http://gruntjs.com/), para ello vamos a instalar globalmente:
+Ahora vamos a usar [Grunt](http://gruntjs.com/), nos sirve para automatizar tareas, 
+para ello vamos a instalar globalmente:
 
     npm install -g grunt-cli
 
@@ -133,3 +112,29 @@ a continuación asignamos a la tarea el alias 'server'. Para probarlo debemos us
 En la siguiente captura podemos ver el resultado:
 
 ![grunt](grunt-1.png)
+
+Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
+mi cuenta de GitHub [@jesusgn90](https://github.com/jesusgn90/). Lo primero que debemos hacer es crear
+el fichero .travis.yml, en el cual he añadido lo siguiente:
+
+    build_environment: Ubuntu 14.04
+    language: node_js
+    node_js:
+      - "0.10"
+    before_install:
+      - npm install mocha
+      - npm install request
+      - npm install -g grunt-cli
+      - npm install grunt
+      - npm install grunt-bg-shell
+    script:
+      - ./node_modules/mocha/bin/mocha
+      - grunt server
+
+En él indicamos que se ejecute en un entorno Ubuntu 14.04 usando el lenguaje node_js versión 0.10 y que además instale
+localmente los módulos mocha y request. Además deseamos que ejecute mocha para los test por eso indicamos que se ejecute mocha
+mediante el apartado script.
+
+Podemos ver esta captura de pantalla de Travis en la que vemos que efectivamente se ejecuta todo como se esperaba:
+
+![travis](travis-1.png)
