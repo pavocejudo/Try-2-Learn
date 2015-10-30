@@ -5,5 +5,7 @@ node_js:
 before_install:
   - npm install mocha
   - npm install request
+  - npm install grunt
 script:
   - ./node_modules/mocha/bin/mocha
+  - grunt server
