@@ -13,7 +13,7 @@ doc:
 	echo "Aún pendiente de implementar..."
 
 run:
-	node server.js
+	node app.js
 
 clean:
 	rm -r node_modules

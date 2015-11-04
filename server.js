@@ -12,7 +12,6 @@ console.log('listening to http://' + http_IP + ':' + http_port);
 var shutdown = function(){
     server.close();
 }
-boot();
 exports.boot = boot;
 exports.shutdown = shutdown;
 exports.port = http_port;
