@@ -5,4 +5,4 @@ node_js:
 before_install:
   - make install
 script:
-  - make test
+  - make test_mocha
