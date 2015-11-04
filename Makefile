@@ -1,11 +1,19 @@
 BIN = ./node_modules/.bin
 
+.PHONY: test
+
 install:
 	#sudo apt-get -y install npm
 	npm install
 
-test_mocha:
+test:
 	@$(BIN)/mocha test
+
+doc:
+	echo "Aún pendiente de implementar..."
+
+run:
+	node server.js
 
 clean:
 	rm -r node_modules

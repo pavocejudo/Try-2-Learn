@@ -34,44 +34,13 @@ En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requ
 
 Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.com
 
-### Test, integración continua, build tools y algunos avances sobre la app
-Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por 
-usar [mocha](https://mochajs.org/), para usarlo lo instalaremos en nuestro proyecto(--save-dev nos actualiza el 
-fichero package.json al instalar un módulo):
+###Segundo hito
+#### Sistema de Test
+Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por usar [mocha](https://mochajs.org/) porque es un framework de pruebas unitarias para JavaScript que ejecuta las pruebas en serie permitiendo reportes flexibles y exactos, es perfecto para mi proyecto basado en nodejs.
 
-    npm install mocha --save-dev
+A continuación vamos a crear un nuevo directorio llamado test en el cual añadiremos pequeños script para realizar los test. He creado un pequeño script que lo que hace es comprobar que se carga el servidor correctamente haciendo uso del método 'GET', está en test/test.js.
 
-A continuación vamos a crear un nuevo directorio llamado test en el cual añadiremos pequeños script
-para ir probando mocha. He creado un pequeño script que lo que hace es comprobar que se carga
-el servidor correctamente haciendo uso del método 'GET', a continuación describo el contenido de test/test1.js:
-
-    var boot = require('../server').boot,
-            shutdown = require('../server').shutdown,
-            port = require('../server').port,
-            request = require('request');
-        describe('Test de arrancado de servidor', function () {
-            before(function () {
-                boot();
-        });
-        describe('server.js', function () {
-            it('Probando método GET', function () {
-                request('http://127.0.0.1:'+port, function (error, response,body) {
-                    if (!error && response.statusCode == 200) {
-                        console.log("Server ON");
-                    }
-                });
-            })
-        });
-        after(function () {
-            shutdown();
-        });
-
-    });
- 
-Para probar el test con mocha simplemente ejecutamos:
-
-    ./node_modules/mocha/bin/mocha
-
+#### Integración continua
 Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
 mi cuenta de GitHub [@jesusgn90](https://github.com/jesusgn90/) por su facilidad de uso y por su compatibilidad con GitHub. Lo primero que debemos hacer es crear
 el fichero .travis.yml, en el cual he añadido lo siguiente:
@@ -90,3 +59,13 @@ En él indicamos que se ejecute en un entorno Ubuntu 14.04 usando el lenguaje no
 Podemos ver esta captura de pantalla de Travis en la que vemos que efectivamente se ejecuta todo como se esperaba:
 
 ![travis](travis-1.png)
+
+####Makefile
+Se ha creado un fichero Makefile que irá creciendo con el tiempo en el que podemos realizar varias tareas de una forma cómoda, a continuación se describen las opciones:
+
+    make install - instala las dependencias del proyectos
+    make run - ejecuta el servidor
+    make test - realiza los test de mocha
+    make doc - genera la documentación
+    make clean - limpia directorios/ficheros generados por otras órdenes del makefile
+
