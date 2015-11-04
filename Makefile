@@ -1,7 +1,7 @@
 BIN = ./node_modules/.bin
 
 install:
-	sudo apt-get -y install npm
+	#sudo apt-get -y install npm
 	npm install
 
 test_mocha:
