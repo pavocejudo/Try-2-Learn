@@ -19,8 +19,6 @@
     "url": "http://github.com/jesusgn90/Try-2-Learn/issues"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-bg-shell": "^2.3.1",
     "mocha": "^2.3.3",
     "request": "^2.65.0"
   }
