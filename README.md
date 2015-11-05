@@ -39,7 +39,8 @@ Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.co
 Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por usar [mocha](https://mochajs.org/) porque es un framework de pruebas unitarias para JavaScript que ejecuta las pruebas en serie permitiendo reportes flexibles y exactos, es perfecto para mi proyecto basado en nodejs.
 
 Dado que he configurado un Makefile podemos realizar los test usando:
-    make test.
+    
+    make test
 
 #### Integración continua
 Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
