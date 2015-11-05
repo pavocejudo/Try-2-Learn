@@ -7,9 +7,18 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET hello world */
-router.get('/helloworld', function(req, res) {
-  res.render('helloworld', { title: 'Hello, World!' });
-  res.status(200).send('ok');
+router.get('/readcode', function(req, res) {
+  res.setHeader("Content-Type", "text/html");
+  res.render('readcode', { title: 'Lector de código' });
+  res.end();
+});
+
+
+router.post('/readcode',function (req, res) {
+    res.setHeader("Content-Type", "text/html");
+    var prueba = require('../utils/utils');
+    prueba.execute('ls');
+    res.end();
 });
 
 module.exports = router;

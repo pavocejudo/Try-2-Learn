@@ -14,6 +14,7 @@
     "mocha": "^2.3.3",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
+    "shelljs": "^0.5.3",
     "supertest": "^1.1.0"
   }
 }
