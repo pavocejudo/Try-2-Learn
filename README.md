@@ -38,7 +38,8 @@ Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.co
 #### Sistema de Test
 Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por usar [mocha](https://mochajs.org/) porque es un framework de pruebas unitarias para JavaScript que ejecuta las pruebas en serie permitiendo reportes flexibles y exactos, es perfecto para mi proyecto basado en nodejs.
 
-A continuación vamos a crear un nuevo directorio llamado test en el cual añadiremos pequeños script para realizar los test. He creado un pequeño script que lo que hace es comprobar que se carga el servidor correctamente haciendo uso del método 'GET', está en test/test.js.
+Dado que he configurado un Makefile podemos realizar los test usando:
+    make test.
 
 #### Integración continua
 Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
