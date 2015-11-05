@@ -16,8 +16,7 @@ router.get('/readcode', function(req, res) {
 
 router.post('/readcode',function (req, res) {
     res.setHeader("Content-Type", "text/html");
-    var prueba = require('../utils/utils');
-    prueba.execute('ls');
+    res.send('post ok');
     res.end();
 });
 

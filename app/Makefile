@@ -17,4 +17,5 @@ run:
 
 clean:
 	rm -r node_modules
+	rm -r ./*~
 	#sudo apt-get remove npm
