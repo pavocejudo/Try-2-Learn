@@ -69,3 +69,6 @@ Se ha creado un fichero Makefile que irá creciendo con el tiempo en el que pode
     make doc - genera la documentación
     make clean - limpia directorios/ficheros generados por otras órdenes del makefile
 
+####Nuevas herramientas añadidas
+    Jade, como motor de plantillas
+    Express, framework para NodeJS
