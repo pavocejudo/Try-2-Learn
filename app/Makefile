@@ -10,12 +10,12 @@ test:
 	@$(BIN)/mocha test
 
 doc:
-	echo "Aún pendiente de implementar..."
+	@$(BIN)/docco routes/*.js utils/*.js test/*.js
 
 run:
 	node bin/www
 
 clean:
 	rm -r node_modules
-	rm -r ./*~
+	rm -r docs
 	#sudo apt-get remove npm
