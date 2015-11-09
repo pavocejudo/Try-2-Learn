@@ -72,3 +72,4 @@ Se ha creado un fichero Makefile que irá creciendo con el tiempo en el que pode
 ####Nuevas herramientas añadidas
     Jade, como motor de plantillas
     Express, framework para NodeJS
+    Docco, para generar la documentación de forma cómoda

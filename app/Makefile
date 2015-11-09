@@ -3,7 +3,9 @@ BIN = ./node_modules/.bin
 .PHONY: test
 
 install:
-	#sudo apt-get -y install npm
+	sudo apt-get -y install npm
+	sudo apt-get -y install docker.io
+	sudo docker pull ubuntu:latest
 	npm install
 
 test:
