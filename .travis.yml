@@ -1,5 +1,6 @@
 build_environment: Ubuntu 14.04
 language: node_js
+sudo: required
 node_js:
   - "0.10"
 before_install:
