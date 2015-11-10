@@ -47,16 +47,20 @@ Respecto a la integración continua he optado por utilizar [Travis](https://trav
 mi cuenta de GitHub [@jesusgn90](https://github.com/jesusgn90/) por su facilidad de uso y por su compatibilidad con GitHub. Lo primero que debemos hacer es crear
 el fichero .travis.yml, en el cual he añadido lo siguiente:
 
-    build_environment: Ubuntu 14.04
     language: node_js
+    sudo: required
+    services:
+      - docker
     node_js:
       - "0.10"
     before_install:
+      - docker pull ubuntu:latest
+      - cd app
       - make install
     script:
       - make test
 
-En él indicamos que se ejecute en un entorno Ubuntu 14.04 usando el lenguaje node_js versión 0.10 y que además instale las dependencias necesarias usando make install. Además deseamos que ejecute los test por eso indicamos que se ejecute make test.
+En él indicamos que se ejecute en un entorno usando el lenguaje node_js versión 0.10 y que además instale las dependencias necesarias usando make install. Además deseamos que ejecute los test por eso indicamos que se ejecute make test.
 
 [![Build Status](https://travis-ci.org/jesusgn90/Try-2-Learn.svg?branch=master)](https://travis-ci.org/jesusgn90/Try-2-Learn)
 
