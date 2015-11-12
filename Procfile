@@ -1,1 +1,1 @@
-myprocess: sh -c 'cd app'
+web: node app/bin/www
