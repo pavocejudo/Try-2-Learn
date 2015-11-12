@@ -1,1 +1,1 @@
-web: sh -c 'cd app && make run'
+myprocess: sh -c 'cd app'
