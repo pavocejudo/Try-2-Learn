@@ -77,3 +77,34 @@ Se ha creado un fichero Makefile que irá creciendo con el tiempo en el que pode
     Jade, como motor de plantillas
     Express, framework para NodeJS
     Docco, para generar la documentación de forma cómoda
+
+###Tercer hito
+####Despliegue en PaaS Heroku
+He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
+
+Mostraré como lo he realizado en el proyecto propio de las prácticas de la asignatura. El proyecto propio es [Try-2-Learn](https://github.com/jesusgn90/Try-2-Learn), pues dentro esta el directorio "app", que es la aplicación nodejs, en el he creado otro repositorio para Heroku. 
+
+    Instalamos [Heroku Toolbelt](https://toolbelt.heroku.com/)
+    $ heroku login
+    $ cd app
+    $ git init
+    $ heroku apps:create try-2-learn
+
+Ya tenemos creada una aplicación en Heroku llamada try-2-learn, ahora añadiremos un fichero Procfile que indica a Heroku que hacer, probablemente este fichero sea modificado con el tiempo, pero de momento indicaremos sólamente la siguiente línea:
+
+    web: npm start
+
+Finalmente vamos a añadir todo el subdirectorio "app" al nuevo repositorio que creamos anteriormente.
+
+    $ heroku git:remote -a try-2-learn
+    $ git add .
+    $ git commit -am "prueba"
+    $ git push heroku master
+
+De esta forma hemos actualizado indicando a heroku de que repositorio debe coger el código y finalmente lo hemos desplegado. Para arrancar la aplicación para verla en un navegador ejecutamos:
+
+    $ heroku open
+
+Podemos verla en [https://try-2-learn.herokuapp.com/](https://try-2-learn.herokuapp.com/)
+
+Con esto tendríamos configurada y puesta en marcha la aplicación en Heroku, ahora falta SnapCI
