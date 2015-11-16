@@ -4,8 +4,15 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index');
 });
-router.post('/upload',function(req, res, next) {
-  res.send("Código recibido:\n" + req.body.description);
+router.post('/compiled',function(req, res, next) {
+    require('shelljs/global');
+    var code = req.body.description;
+    var data = exec('docker build -t home/ubuntu-python-hello test/', {}).output;
+    console.log(data.toString());
+    data = exec('docker run -t home/ubuntu-python-hello', {}).output;
+    var data2 = exec('docker stop $(docker ps -a -q)', {}).output;    
+    res.render('compiled', { data: data.toString(), code: code });
+    
 });
 /* GET about page. */
 router.get('/about', function(req, res, next) {

@@ -6,9 +6,10 @@ append body
 			+nav_item("/about") About
 			+nav_item("/contact") Contact
 	.container
-		form(name="add-estimation", method="post",action="/upload")
+		h2 Introduce aquí tu código
+		form(name="compile", method="post",action="/compiled")
 			div.input
 			textarea(name="description", cols="40", rows="5").
 				print "Hello world!"
 			div.actions
-			input(type="submit", value="compile")
+			input(type="submit", value="Run Code")
