@@ -4,7 +4,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index');
 });
-
+router.post('/upload',function(req, res, next) {
+  res.send("Código recibido:\n" + req.body.description);
+});
 /* GET about page. */
 router.get('/about', function(req, res, next) {
   res.render('about');

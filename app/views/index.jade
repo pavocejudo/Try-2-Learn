@@ -5,4 +5,10 @@ append body
 			+nav_item("/","active") Home
 			+nav_item("/about") About
 			+nav_item("/contact") Contact
-
+	.container
+		form(name="add-estimation", method="post",action="/upload")
+			div.input
+			textarea(name="description", cols="40", rows="5").
+				print "Hello world!"
+			div.actions
+			input(type="submit", value="compile")
