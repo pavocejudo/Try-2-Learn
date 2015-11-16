@@ -7,11 +7,28 @@ router.get('/', function(req, res, next) {
 router.post('/compiled',function(req, res, next) {
     require('shelljs/global');
     var code = req.body.description;
-    var data = exec('docker build -t home/ubuntu-python-hello test/', {}).output;
-    console.log(data.toString());
-    data = exec('docker run -t home/ubuntu-python-hello', {}).output;
-    var data2 = exec('docker stop $(docker ps -a -q)', {}).output;    
-    res.render('compiled', { data: data.toString(), code: code });
+    var path = 'test/hello.py',
+        fs = require('fs'),
+        buffer = new Buffer(req.body.description.toString());
+    fs.open(path, 'w', function(err, fd) {
+        if (err) {
+            throw 'error opening file: ' + err;
+        }
+
+        fs.write(fd, buffer, 0, buffer.length, null, function(err) {
+            if (err) throw 'error writing file: ' + err;
+            fs.close(fd, function() {
+                console.log('hello.py written');
+                var data = exec('docker build -t home/ubuntu-python-hello test/', {}).output;
+                console.log('image built');
+                data = exec('docker run -t home/ubuntu-python-hello', {}).output;
+                console.log('image runs');
+                res.render('compiled', { data: data.toString(), code: code });
+                var data2 = exec('docker stop $(docker ps -a -q)', {}).output;    
+            })
+        });
+    });
+    
     
 });
 /* GET about page. */

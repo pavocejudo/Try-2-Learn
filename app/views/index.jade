@@ -10,6 +10,7 @@ append body
 		form(name="compile", method="post",action="/compiled")
 			div.input
 			textarea(name="description", cols="40", rows="5").
-				print "Hello world!"
+				if __name__ == "__main__":
+					print "Hello world!"
 			div.actions
 			input(type="submit", value="Run Code")
