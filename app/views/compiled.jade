@@ -6,9 +6,9 @@ append body
 			+nav_item("/about") About
 			+nav_item("/contact") Contact
 	.container
-		h2 Lenguaje
-		p Python
-		h2 Código
-		p #{code}
-		h2 Salida del programa
-		p #{data}
+		h2 Language
+		p #{lang}
+		h2 Executed code
+		pre !{code.replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')}
+		h2 Output
+		pre #{data}
