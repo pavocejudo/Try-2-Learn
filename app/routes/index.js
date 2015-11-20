@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 router.post('/compiled',function(req, res, next) {
     require('shelljs/global');
+    var docker = require('../utils/utils');
     var code = req.body.description;
     var path = 'test/hello.py';
     var buffer = new Buffer(req.body.description.toString());
@@ -20,16 +21,13 @@ router.post('/compiled',function(req, res, next) {
         fs.write(fd, buffer, 0, buffer.length, null, function(err) {
             if (err) throw 'error writing file: ' + err;
             fs.close(fd, function() {
-                data = exec('docker build -t home/ubuntu -f test/docker_python test/', {}).output;
-                data = exec('docker run -t home/ubuntu', {}).output;
-                console.log('image runs');
+                data = docker.build(langs[parseInt(req.body.language)]);
+                data = docker.run();
                 res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
-                data2 = exec('docker stop $(docker ps -a -q)', {}).output;
+                data2 = docker.stop(path);
             })
         });
     });
-    data2 = exec('rm ' + path, {}).output;     
-    
 });
 /* GET about page. */
 router.get('/about', function(req, res, next) {

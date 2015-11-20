@@ -14,8 +14,16 @@ append body
 					option(value=i) #{lang}
 			br
 			h3 Write code
-			textarea(name="description", cols="40", rows="5").
+			textarea(name="description", cols="40", rows="11").
+				def fib(n):
+					if n == 0:
+						return 0
+					elif n == 1:
+						return 1
+					else:
+						return fib(n-1) + fib(n-2)
 				if __name__ == "__main__":
-					print "Hello world!"
+					for i in range(10):
+						print fib(i)
 			div.actions
 			input(type="submit", value="Run Code")
