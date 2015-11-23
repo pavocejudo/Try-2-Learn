@@ -30,17 +30,16 @@ Proyecto inscrito en el certamen de [Proyectos Libres de la UGR 2015-2016](http:
 ![Inscripción](inscripcion_certamen.png)
 
 #### Integrantes del equipo
-En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requestearme" quien lo desee!  
+En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requestearme" quien lo desee! 
 
 Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.com
 
-###Segundo hito
 #### Sistema de Test
 Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por usar [mocha](https://mochajs.org/) porque es un framework de pruebas unitarias para JavaScript que ejecuta las pruebas en serie permitiendo reportes flexibles y exactos, es perfecto para mi proyecto basado en nodejs.
 
-Dado que he configurado un Makefile podemos realizar los test usando:
+Dado que he configurado grunt-mocha podemos realizar los test usando:
     
-    make test
+    grunt test
 
 #### Integración continua
 Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
@@ -55,30 +54,27 @@ el fichero .travis.yml, en el cual he añadido lo siguiente:
       - "0.10"
     before_install:
       - docker pull ubuntu:latest
-      - cd app
-      - make install
+      - npm install
     script:
-      - make test
+      - grunt test
 
 En él indicamos que se ejecute en un entorno usando el lenguaje node_js versión 0.10 y que además instale las dependencias necesarias usando make install. Además deseamos que ejecute los test por eso indicamos que se ejecute make test.
 
 [![Build Status](https://travis-ci.org/jesusgn90/Try-2-Learn.svg?branch=master)](https://travis-ci.org/jesusgn90/Try-2-Learn)
 
-####Makefile
-Se ha creado un fichero Makefile que irá creciendo con el tiempo en el que podemos realizar varias tareas de una forma cómoda, a continuación se describen las opciones:
+####Grunt
+Se ha creado un fichero Grunfile.js que irá creciendo con el tiempo en el que podemos realizar varias tareas de una forma cómoda, a continuación se describen las opciones:
 
-    make install - instala las dependencias del proyectos
-    make run - ejecuta el servidor
-    make test - realiza los test de mocha
-    make doc - genera la documentación
-    make clean - limpia directorios/ficheros generados por otras órdenes del makefile
+    grunt start - ejecuta el servidor
+    grunt test - realiza los test de mocha
+    grunt doc - genera la documentación
+    grunt clean - limpia directorios/ficheros generados por otras órdenes
 
 ####Nuevas herramientas añadidas
     Jade, como motor de plantillas
     Express, framework para NodeJS
     Docco, para generar la documentación de forma cómoda
 
-###Tercer hito
 ####Despliegue en PaaS Heroku
 He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
 
