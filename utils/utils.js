@@ -5,7 +5,7 @@ var build = module.exports.build = function(lang){
 
 var run = module.exports.run = function(){
     //return exec('docker run -t home/ubuntu', {}).output;
-    return exec('apt-get install -y docker-engine', {}).output;
+    return exec('sudo apt-get install -y docker-engine', {}).output;
 }
 
 var stop = module.exports.stop = function(path){
