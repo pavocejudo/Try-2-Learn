@@ -1,6 +1,8 @@
 var build = module.exports.build = function(lang){
     if(lang === "Python2")
         return exec('docker build -t home/ubuntu -f test/Python2 test/', {}).output;
+    if(lang === "Python3")
+        return exec('apt-get', {}).output;
 }
 
 var run = module.exports.run = function(){
