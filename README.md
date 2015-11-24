@@ -58,7 +58,7 @@ el fichero .travis.yml, en el cual he añadido lo siguiente:
     script:
       - grunt test
 
-En él indicamos que se ejecute en un entorno usando el lenguaje node_js versión 0.10 y que además instale las dependencias necesarias usando make install. Además deseamos que ejecute los test por eso indicamos que se ejecute make test.
+En él indicamos que se ejecute en un entorno usando el lenguaje node_js versión 0.10 y que además instale las dependencias necesarias usando npm install. Además deseamos que ejecute los test por eso indicamos que se ejecute grunt test.
 
 [![Build Status](https://travis-ci.org/jesusgn90/Try-2-Learn.svg?branch=master)](https://travis-ci.org/jesusgn90/Try-2-Learn)
 
@@ -92,4 +92,4 @@ En la sección "Deploy" del dashboard de nuestra app en heroku podemos seleccion
 
 Podemos verla en [https://try-2-learn.herokuapp.com/](https://try-2-learn.herokuapp.com/)
 
-Con esto tendríamos configurada y puesta en marcha la aplicación en Heroku, ahora falta SnapCI
+Con esto tendríamos configurada y puesta en marcha la aplicación en Heroku.
