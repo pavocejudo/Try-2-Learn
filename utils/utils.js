@@ -1,13 +1,14 @@
 var build = module.exports.build = function(lang){
-    return "test";
-//    if(lang === "Python2")
-//        return exec('docker build -t ubuntu -f test/Python2 test/', {}).output;
-    
+    if(lang === "Python2")
+        return exec('docker build -t ubuntu -f test/Python2 test/', {}).output;
+    if(lang === "Python3")
+        return exec('docker build -t ubuntu -f test/Python3 test/', {}).output;
+    if(lang === "Ruby")
+        return exec('docker build -t ubuntu -f test/Ruby test/', {}).output;
 }
 
 var run = module.exports.run = function(){
-    //return exec('docker run -t ubuntu', {}).output;
-    return exec('docker run ubuntu:14.04 /bin/echo "Hello world"', {}).output
+    return exec('docker run --memory=128M -t ubuntu', {}).output;
 }
 
 var stop = module.exports.stop = function(path){

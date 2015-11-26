@@ -11,6 +11,8 @@ router.post('/compiled',function(req, res, next) {
     var docker = require('../utils/utils');
     var code = req.body.description;
     var path = 'test/hello.py';
+    if(langs[parseInt(req.body.language)] === "Ruby")
+        path = 'test/hello.rb';
     var buffer = new Buffer(req.body.description.toString());
     var data = '', data2 = '';
     fs.open(path, 'w', function(err, fd) {
