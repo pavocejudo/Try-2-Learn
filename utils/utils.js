@@ -1,10 +1,10 @@
 var build = module.exports.build = function(lang){
     if(lang === "Python2")
-        return exec('docker build -t home/ubuntu -f test/Python2 test/', {}).output;
+        return exec('docker build -t ubuntu -f test/Python2 test/', {}).output;
 }
 
 var run = module.exports.run = function(){
-    return exec('docker run -t home/ubuntu', {}).output;
+    return exec('docker run -t ubuntu', {}).output;
 }
 
 var stop = module.exports.stop = function(path){
