@@ -1,0 +1,10 @@
+extends ../node_modules/jade-bootstrap/_bootstrap.jade
+append body 
+	.container
+		+navbar("Try-2-Learn","dropdown_menu")
+			+nav_item("/","active") Home
+			+nav_item("/about") About
+			+nav_item("/contact") Contact
+	.container
+		h2 Error :(
+		pre #{error}

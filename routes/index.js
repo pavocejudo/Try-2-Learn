@@ -8,18 +8,23 @@ router.get('/', function(req, res, next) {
 });
 router.post('/compiled',function(req, res, next) {
     require('shelljs/global');
-    var docker = require('../utils/utils');
-    var code = req.body.description;
-    var lang = langs[parseInt(req.body.language)];
-    var path = (Date.now() / 1000 | 0).toString();
-    docker.create_dir(path,lang,code);
-    /* Establecemos un timeout para esperar a la función create_dir */
-    setTimeout(function(){
-        var data = docker.build(path);
-        data = docker.run(path);
-        res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
-        data = docker.stop(path);
-    }, 2000);
+    var is_installed = exec('dpkg -l | grep docker', {}).output;
+    if(is_installed === ''){
+        res.render('compiled_error', { error: 'docker not installed'});
+    }else{
+        var docker = require('../utils/utils');
+        var code = req.body.description;
+        var lang = langs[parseInt(req.body.language)];
+        var path = (Date.now() / 1000 | 0).toString();
+        docker.create_dir(path,lang,code);
+        /* Establecemos un timeout para esperar a la función create_dir */
+        setTimeout(function(){
+            var data = docker.build(path);
+            data = docker.run(path);
+            res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
+            data = docker.stop(path);
+        }, 2000);
+    }
 });
 /* GET about page. */
 router.get('/about', function(req, res, next) {
