@@ -10,26 +10,16 @@ router.post('/compiled',function(req, res, next) {
     require('shelljs/global');
     var docker = require('../utils/utils');
     var code = req.body.description;
-    var path = 'test/hello.py';
-    if(langs[parseInt(req.body.language)] === "Ruby")
-        path = 'test/hello.rb';
-    var buffer = new Buffer(req.body.description.toString());
-    var data = '', data2 = '';
-    fs.open(path, 'w', function(err, fd) {
-        if (err) {
-            throw 'error opening file: ' + err;
-        }
-
-        fs.write(fd, buffer, 0, buffer.length, null, function(err) {
-            if (err) throw 'error writing file: ' + err;
-            fs.close(fd, function() {
-                data = docker.build(langs[parseInt(req.body.language)]);
-                data = docker.run();
-                res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
-                data2 = docker.stop(path);
-            })
-        });
-    });
+    var lang = langs[parseInt(req.body.language)];
+    var path = (Date.now() / 1000 | 0).toString();
+    docker.create_dir(path,lang,code);
+    /* Establecemos un timeout para esperar a la función create_dir */
+    setTimeout(function(){
+        var data = docker.build(path);
+        data = docker.run(path);
+        res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
+        data = docker.stop(path);
+    }, 2000);
 });
 /* GET about page. */
 router.get('/about', function(req, res, next) {

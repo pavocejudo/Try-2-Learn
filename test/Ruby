@@ -1,7 +1,0 @@
-FROM ubuntu:latest
-
-RUN apt-get -y install ruby
-
-COPY hello.rb hello.rb
-
-CMD ruby hello.rb

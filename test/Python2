@@ -1,4 +1,0 @@
-FROM ubuntu:latest
-RUN apt-get install -y python
-COPY hello.py hello.py
-CMD python hello.py

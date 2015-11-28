@@ -1,18 +1,61 @@
-var build = module.exports.build = function(lang){
-    if(lang === "Python2")
-        return exec('docker build -t ubuntu -f test/Python2 test/', {}).output;
-    if(lang === "Python3")
-        return exec('docker build -t ubuntu -f test/Python3 test/', {}).output;
-    if(lang === "Ruby")
-        return exec('docker build -t ubuntu -f test/Ruby test/', {}).output;
+/* Función que crea un directorio temporal, crea un Dockerfile adecuado,
+crea un fichero fuente con el código del usuario */
+var create_dir = module.exports.create_dir = function(path,lang,code){
+    //Creamos directorio 
+    exec('mkdir utils/'+path, {});
+    var fs = require('fs');
+    var endfile = '';
+    if(lang === 'Python2'){
+        endfile = '.py';
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python\nCOPY hello.py hello.py\nCMD python hello.py', function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("Dockerfile written");
+        });
+    }
+    if(lang === 'Python3'){
+        endfile = '.py';
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python3\nCOPY hello.py hello.py\nCMD python3 hello.py', function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("Dockerfile written");
+        });
+    }
+    if(lang === 'Ruby'){
+        endfile = '.rb';
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y ruby\nCOPY hello.rb hello.rb\nCMD ruby hello.rb', function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("Dockerfile written");
+        });
+    
+    }
+    fs.writeFile('utils/' + path + '/hello' + endfile, code.toString(), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("Code written");
+    });
+
 }
 
-var run = module.exports.run = function(){
-    return exec('docker run --memory=128M -t ubuntu', {}).output;
+/* Función que crea la imagen docker */
+var build = module.exports.build = function(path){
+    return exec('docker build -t ubuntu utils/' + path, {}).output;
 }
 
+/* Función que corre el contenedor docker */
+var run = module.exports.run = function(path){
+    return exec('docker run --memory=128M --name=' + path + ' -t ubuntu', {}).output;
+}
+
+/* Función que detiene todos los contenedores docker y elimina el directorio 
+usado por el cliente */
 var stop = module.exports.stop = function(path){
-    return exec('docker stop $(docker ps -a -q) && rm ' + path, {}).output;
+    return exec('docker stop $(docker ps -a -q) && rm -r utils/' + path , {}).output;
 }
 
 
