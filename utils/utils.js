@@ -48,13 +48,15 @@ var build = module.exports.build = function(path){
 }
 
 /* Función que corre el contenedor docker */
-var run = module.exports.run = function(path){
-    return exec('docker run --memory=128M --name=' + path + ' -t ubuntu', {}).output;
+var run = module.exports.run = function(path,ram){
+    console.log('Running a container with ' + ram + 'MB of RAM...');
+    return exec('docker run --memory=' + ram + 'M --cpu-quota=50000 --name=' + path + ' -t ubuntu', {}).output;
 }
 
 /* Función que detiene todos los contenedores docker y elimina el directorio 
 usado por el cliente */
 var stop = module.exports.stop = function(path){
+    console.log('Stopping container...');
     return exec('docker stop $(docker ps -a -q) && rm -r utils/' + path , {}).output;
 }
 

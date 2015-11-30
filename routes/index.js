@@ -13,14 +13,15 @@ router.post('/compiled',function(req, res, next) {
         res.render('compiled_error', { error: 'docker not installed'});
     }else{
         var docker = require('../utils/utils');
-        var code = req.body.description;
         var lang = langs[parseInt(req.body.language)];
+        var ram = req.body.ram;
+        var code = req.body.description;
         var path = (Date.now() / 1000 | 0).toString();
         docker.create_dir(path,lang,code);
         /* Establecemos un timeout para esperar a la función create_dir */
         setTimeout(function(){
             var data = docker.build(path);
-            data = docker.run(path);
+            data = docker.run(path,ram);
             res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
             data = docker.stop(path);
         }, 2000);

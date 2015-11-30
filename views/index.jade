@@ -13,6 +13,12 @@ append body
 				each lang, i in langs
 					option(value=i) #{lang}
 			br
+			h3 Select RAM
+			select(name="ram")
+				option(value=128) 128MB
+				option(value=256) 256MB
+				option(value=512) 512MB
+			br   
 			h3 Write code
 			textarea(name="description", cols="40", rows="11").
 				def fib(n):
