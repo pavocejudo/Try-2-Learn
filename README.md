@@ -1,5 +1,6 @@
 # Try-2-Learn
-## Proyecto para la asignatura IV 2015-16
+Proyecto para la asignatura IV 2015-16
+
 ###Descripción 
 Dada la naturaleza de la asignatura el proyecto debe orientarse hacia las tecnologías
 SaaS/PaaS/IaaS.
@@ -11,7 +12,7 @@ Try2Learn nos permite crear un entorno virtual aislado y preparado para el lengu
 
 El programa se ejecutará dentro de un entorno virtualizado el cual podrá ser personalizable por el usuario.
 
-###Objetivos iniciales
+####Objetivos iniciales
 * Servidor con [nodejs](https://es.wikipedia.org/wiki/Node.js)
 * Comprender y ser capaz de crear [dockers](https://es.wikipedia.org/wiki/Docker) personalizados para la virtualización de los entornos del usuario.
 * Dado un código fuente sencillo [compilarlo](https://es.wikipedia.org/wiki/Compilador) o [interpretarlo](https://es.wikipedia.org/wiki/Int%C3%A9rprete_(inform%C3%A1tica)#Lenguaje_interpretado), según el lenguaje, en el servidor y devolver la salida.
@@ -34,14 +35,14 @@ En un principio estoy yo sólo en el proyecto, aunque puede "forkearme/pull requ
 
 Si deseas contactar conmigo te sugiero me escribas a jesusgonzaleznovez@gmail.com
 
-#### Sistema de Test
+### Sistema de Test
 Dado que la aplicación esta basada en [node.js](https://es.wikipedia.org/wiki/Node.js) me he decidido por usar [mocha](https://mochajs.org/) porque es un framework de pruebas unitarias para JavaScript que ejecuta las pruebas en serie permitiendo reportes flexibles y exactos, es perfecto para mi proyecto basado en nodejs.
 
 Dado que he configurado grunt-mocha podemos realizar los test usando:
     
     grunt test
 
-#### Integración continua
+### Integración continua
 Respecto a la integración continua he optado por utilizar [Travis](https://travis-ci.org/) usando
 mi cuenta de GitHub [@jesusgn90](https://github.com/jesusgn90/) por su facilidad de uso y por su compatibilidad con GitHub. Lo primero que debemos hacer es crear
 el fichero .travis.yml, en el cual he añadido lo siguiente:
@@ -75,7 +76,7 @@ Se ha creado un fichero Grunfile.js que irá creciendo con el tiempo en el que p
     Express, framework para NodeJS
     Docco, para generar la documentación de forma cómoda
 
-####Despliegue en PaaS Heroku
+###Despliegue en PaaS Heroku
 He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
 
 Mostraré como lo he realizado en el proyecto propio de las prácticas de la asignatura. El proyecto propio es [Try-2-Learn](https://github.com/jesusgn90/Try-2-Learn)
@@ -93,3 +94,51 @@ En la sección "Deploy" del dashboard de nuestra app en heroku podemos seleccion
 Podemos verla en [https://try-2-learn.herokuapp.com/](https://try-2-learn.herokuapp.com/)
 
 Con esto tendríamos configurada y puesta en marcha la aplicación en Heroku.
+
+###Dockerhub
+Se ha creado una imagen docker con todo el entorno preparado para quien quiera usar esta aplicación sin preocuparse por el entorno. Se parte una imagen base concreta, llamada "dind" que nos permite ejecutar dockers dentro de otro docker, mas info [aquí](https://github.com/jpetazzo/dind).
+
+Primeramente ejecutaremos la imagen "dind", cortesía del usuario "jpetazzo":
+
+    docker run --privileged -it jpetazzo/dind
+
+Una vez tenemos una shell abierta vamos a modificar el contenido del contenedor para posteriormente guardar una nueva imagen, ejecutaremos los siguientes comandos:
+
+    git clone https://github.com/jesusgn90/Try-2-Learn
+    cd Try-2-Learn
+    apt-get update
+    apt-get install -y nodejs
+    apt-get install -y npm
+    echo 'alias node="nodejs"' >> ~/.bashrc #Para invocar nodejs con node
+    source ~/.bashrc
+    npm install #Usa el package.json
+
+Con esto tendríamos preparado el entorno para correr Try-2-Learn sin problemas. A continuación vamos a guardar una nueva imagen haciendo un commit, necesitamos el id del container, abrimos una terminal ajena a docker, es decir una terminal propia de nuestro sistema operativo:
+
+    docker ps #Para ver el id del container
+
+Ahora vamos a crear un repositorio en [https://hub.docker.com](https://hub.docker.com), mi repositorio es:
+
+[https://hub.docker.com/r/jesusgn90/try-2-learn/](https://hub.docker.com/r/jesusgn90/try-2-learn/)
+
+Para poder usar esta imagen:
+
+    docker pull jesusgn90/try-2-learn #Descargamos la imagen
+    docker run --privileged -p 3000 -it jesusgn90/try-2-learn #Abrimos una shell sobre un container de la imagen, se usa el puerto 3000 porque es el que he usado para el servidor nodejs.
+
+Una vez dentro del container arrancaremos la aplicación...
+
+    cd home/Try-2-Learn
+    node bin/www
+
+En otra shell fuera del container necesitamos ver que puerto se le ha mapeado al puerto 3000 del container:
+
+    docker ps
+
+Abrimos un navegador y ya podemos acceder:
+
+    http(s)://iphost:PORT/
+
+Por tanto cualquier persona con Docker instalado podría brindar el servicio que brinda mi aplicación sin preocuparse de preparar un entorno para ello.
+
+
