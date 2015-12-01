@@ -56,8 +56,7 @@ var run = module.exports.run = function(path,ram){
 /* Función que detiene todos los contenedores docker y elimina el directorio 
 usado por el cliente */
 var stop = module.exports.stop = function(path){
-    console.log('Stopping container...');
-    return exec('docker stop $(docker ps -a -q) && rm -r utils/' + path , {}).output;
+    return exec('rm -r utils/' + path , {}).output;
 }
 
 
