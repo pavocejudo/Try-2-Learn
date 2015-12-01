@@ -1,21 +1,22 @@
+Tabla de contenidos
+=================
+
+  * [Try-2-Learn](#try-2-learn)
+      * [Descripción](#descripción)
+      * [Funcionamiento](#funcionamiento)
+        * [Objetivos iniciales](#objetivos-iniciales)
+        * [Objetivos futuros](#objetivos-futuros)
+        * [Inscripción en el certamen de proyectos de la UGR organizado por la OSL](#inscripción-en-el-certamen-de-proyectos-de-la-ugr-organizado-por-la-osl)
+        * [Integrantes del equipo](#integrantes-del-equipo)
+      * [Sistema de Test](#sistema-de-test)
+      * [Integración continua](#integración-continua)
+        * [Grunt](#grunt)
+        * [Nuevas herramientas añadidas](#nuevas-herramientas-añadidas)
+      * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
+      * [Dockerhub](#dockerhub)
+
 # Try-2-Learn
-Proyecto para la asignatura IV 2015-16
-
-**Tabla de contenidos**
-	- [Descripción](#)
-	- [Funcionamiento](#)
-		- [Objetivos iniciales](#)
-		- [Objetivos futuros](#)
-		- [Inscripción en el certamen de proyectos de la UGR organizado por la OSL](#)
-		- [Integrantes del equipo](#)
-	- [Sistema de Test](#)
-	- [Integración continua](#)
-		- [Grunt](#)
-		- [Nuevas herramientas añadidas](#)
-	- [Despliegue en PaaS Heroku](#)
-	- [Dockerhub](#)
-
-
+Proyecto para la asignatura Infraestructuras Virtuales 2015-16
 
 ###Descripción 
 Dada la naturaleza de la asignatura el proyecto debe orientarse hacia las tecnologías
