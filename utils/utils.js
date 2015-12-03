@@ -44,7 +44,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
 
 /* Función que crea la imagen docker */
 var build = module.exports.build = function(path){
-    return exec('docker build -t ubuntu utils/' + path, {}).output;
+    return exec('docker build -t ubuntu' + path + ' utils/' + path, {}).output;
 }
 
 /* Función que corre el contenedor docker */
@@ -56,7 +56,7 @@ var run = module.exports.run = function(path,ram){
 /* Función que detiene todos los contenedores docker y elimina el directorio 
 usado por el cliente */
 var stop = module.exports.stop = function(path){
-    return exec('rm -r utils/' + path , {}).output;
+    return exec('docker rmi ubuntu' + path + ' && rm -r utils/' + path , {}).output;
 }
 
 
