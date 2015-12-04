@@ -31,19 +31,21 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
             }
             console.log("Dockerfile written");
         });
-    
+    }
+    if(lang === 'C++'){
+        endfile = '.cpp';
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get update\nRUN apt-get install -y build-essential\nCOPY hello.cpp hello.cpp\nRUN g++ hello.cpp -o hello\nCMD ./hello', function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("Dockerfile written");
+        });
     }
     fs.writeFile('utils/' + path + '/hello' + endfile, code.toString(), function(err) {
         if(err) {
             return console.log(err);
         }
         console.log("Code written");
-    });
-    fs.writeFile('utils/' + path + '/requirements.txt', 'Django==1.8.5', function(err) {
-        if(err) {
-            return console.log(err);
-        }
-        console.log("Requirements written");
     });
 }
 
