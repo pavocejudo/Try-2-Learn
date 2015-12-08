@@ -113,30 +113,9 @@ Podemos verla en [https://try-2-learn.herokuapp.com/](https://try-2-learn.heroku
 Con esto tendríamos configurada y puesta en marcha la aplicación en Heroku.
 
 ###Dockerhub
-Se ha creado una imagen docker con todo el entorno preparado para quien quiera usar esta aplicación sin preocuparse por el entorno. Se parte una imagen base concreta, llamada "dind" que nos permite ejecutar dockers dentro de otro docker, mas info [aquí](https://github.com/jpetazzo/dind).
+Se ha creado una imagen docker con todo el entorno preparado para quien quiera usar esta aplicación sin preocuparse por el entorno. Se parte de una imagen base concreta, llamada "dind" que nos permite ejecutar dockers dentro de otro docker, mas info [aquí](https://github.com/jpetazzo/dind).
 
-Primeramente ejecutaremos la imagen "dind", cortesía del usuario "jpetazzo":
-
-    docker run --privileged -it jpetazzo/dind
-
-Una vez tenemos una shell abierta vamos a modificar el contenido del contenedor para posteriormente guardar una nueva imagen, ejecutaremos los siguientes comandos:
-
-    git clone https://github.com/jesusgn90/Try-2-Learn
-    cd Try-2-Learn
-    apt-get update
-    apt-get install -y nodejs
-    apt-get install -y npm
-    echo 'alias node="nodejs"' >> ~/.bashrc #Para invocar nodejs con node
-    source ~/.bashrc
-    npm install #Usa el package.json
-
-Con esto tendríamos preparado el entorno para correr Try-2-Learn sin problemas. A continuación vamos a guardar una nueva imagen haciendo un commit, necesitamos el id del container, abrimos una terminal ajena a docker, es decir una terminal propia de nuestro sistema operativo:
-
-    docker ps #Para ver el id del container
-
-Ahora vamos a crear un repositorio en [https://hub.docker.com](https://hub.docker.com), mi repositorio es:
-
-[https://hub.docker.com/r/jesusgn90/try-2-learn/](https://hub.docker.com/r/jesusgn90/try-2-learn/)
+Mi repositorio es [https://hub.docker.com/r/jesusgn90/try-2-learn/](https://hub.docker.com/r/jesusgn90/try-2-learn/)
 
 Para poder usar esta imagen:
 
