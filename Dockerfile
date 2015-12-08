@@ -1,5 +1,7 @@
 FROM jpetazzo/dind
 
+MAINTAINER Jesús Ángel González Novez <jesusgonzaleznovez@gmail.com> 
+
 RUN apt-get update
 RUN apt-get install -y nodejs
 RUN apt-get install -y npm
