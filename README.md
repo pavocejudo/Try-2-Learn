@@ -18,25 +18,25 @@ Tabla de contenidos
 # Try-2-Learn
 Proyecto para la asignatura Infraestructuras Virtuales 2015-16
 
-###Descripción 
+### Descripción 
 Dada la naturaleza de la asignatura el proyecto debe orientarse hacia las tecnologías
 SaaS/PaaS/IaaS.
 
 Try2Learn tiene como objetivo el testeo de scripts o pequeños módulos en diversos lenguajes de forma que el usuario no se tenga que preocupar de crear un entorno específico para testear sus scripts en su lenguaje favorito online.
 
-###Funcionamiento
+### Funcionamiento
 Try2Learn nos permite crear un entorno virtual aislado y preparado para el lenguaje de nuestra aplicación. El usuario manda su código fuente o un paquete y Try2Learn le devuelve la salida del programa compilado/interpretado.
 
 El programa se ejecutará dentro de un entorno virtualizado el cual podrá ser personalizable por el usuario.
 
-####Objetivos iniciales
+#### Objetivos iniciales
 * Servidor con [nodejs](https://es.wikipedia.org/wiki/Node.js)
 * Comprender y ser capaz de crear [dockers](https://es.wikipedia.org/wiki/Docker) personalizados para la virtualización de los entornos del usuario.
 * Dado un código fuente sencillo [compilarlo](https://es.wikipedia.org/wiki/Compilador) o [interpretarlo](https://es.wikipedia.org/wiki/Int%C3%A9rprete_(inform%C3%A1tica)#Lenguaje_interpretado), según el lenguaje, en el servidor y devolver la salida.
 * Crear interfaz web para el usuario
 * Comprender y comenzar a usar [Travis](https://travis-ci.org/)
 
-####Objetivos futuros
+#### Objetivos futuros
 Una vez finalizados y probados con éxito los objetivos iniciales, se pretende afinar un poco más el proyecto dando lugar a:
 
 * Testeo de aplicaciones web completas tipo Django o basadas en otros frameworks en entornos virtuales.
@@ -80,7 +80,7 @@ En él indicamos que se ejecute en un entorno usando el lenguaje node_js versió
 
 [![Build Status](https://travis-ci.org/jesusgn90/Try-2-Learn.svg?branch=master)](https://travis-ci.org/jesusgn90/Try-2-Learn)
 
-####Grunt
+#### Grunt
 Se ha creado un fichero Grunfile.js que irá creciendo con el tiempo en el que podemos realizar varias tareas de una forma cómoda, a continuación se describen las opciones:
 
     grunt start - ejecuta el servidor
@@ -88,12 +88,12 @@ Se ha creado un fichero Grunfile.js que irá creciendo con el tiempo en el que p
     grunt doc - genera la documentación
     grunt clean - limpia directorios/ficheros generados por otras órdenes
 
-####Nuevas herramientas añadidas
+#### Nuevas herramientas añadidas
     Jade, como motor de plantillas
     Express, framework para NodeJS
     Docco, para generar la documentación de forma cómoda
 
-###Despliegue en PaaS Heroku
+### Despliegue en PaaS Heroku
 He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
 
 Mostraré como lo he realizado en el proyecto propio de las prácticas de la asignatura. El proyecto propio es [Try-2-Learn](https://github.com/jesusgn90/Try-2-Learn)
@@ -112,7 +112,7 @@ Podemos verla en [https://try-2-learn.herokuapp.com/](https://try-2-learn.heroku
 
 Con esto tendríamos configurada y puesta en marcha la aplicación en Heroku.
 
-###Dockerhub
+### Dockerhub
 Se ha creado una imagen docker con todo el entorno preparado para quien quiera usar esta aplicación sin preocuparse por el entorno. Se parte de una imagen base concreta, llamada "dind" que nos permite ejecutar dockers dentro de otro docker, mas info [aquí](https://github.com/jpetazzo/dind).
 
 Mi repositorio es [https://hub.docker.com/r/jesusgn90/try-2-learn/](https://hub.docker.com/r/jesusgn90/try-2-learn/)
@@ -126,6 +126,7 @@ Una vez dentro del container arrancaremos la aplicación...
 
     cd home/Try-2-Learn
     node bin/www
+    docker -d &
 
 En otra shell fuera del container necesitamos ver que puerto se le ha mapeado al puerto 3000 del container:
 
