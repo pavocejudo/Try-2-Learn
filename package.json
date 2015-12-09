@@ -25,7 +25,6 @@
   "devDependencies": {
     "grunt-auto-install": "^0.3.0",
     "grunt-mocha-test": "^0.12.7",
-    "grunt-run": "^0.5.2",
-    "l": "0.0.1"
+    "grunt-run": "^0.5.2"
   }
 }
