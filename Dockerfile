@@ -9,6 +9,5 @@ RUN echo 'alias node="nodejs"' >> ~/.bashrc
 RUN . ~/.bashrc
 
 RUN cd /home/ && git clone https://github.com/jesusgn90/Try-2-Learn
-RUN cd /home/Try-2-Learn && npm install
 
-
+#RUN cd /home/Try-2-Learn && npm install
