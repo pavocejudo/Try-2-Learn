@@ -60,9 +60,11 @@ var run = module.exports.run = function(path,ram){
     return exec('docker run --memory=' + ram + 'M --cpu-quota=50000 ubuntu/' + path, {}).output;
 }
 
-/* Función que detiene todos los contenedores docker y elimina el directorio 
+/* Función que detiene todos los contenedores en status 'Exited', la imagen creada y elimina el directorio 
 usado por el cliente */
 var stop = module.exports.stop = function(path){
+    exec("docker ps -a | grep 'Exited' | awk '{print $1}' | xargs docker rm", {}).output;
+    exec('docker rmi ubuntu/' + path , {}).output;
     return exec('rm -r utils/' + path , {}).output;
 }
 
