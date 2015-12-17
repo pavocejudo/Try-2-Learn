@@ -138,4 +138,5 @@ Abrimos un navegador y ya podemos acceder:
 
 Por tanto cualquier persona con Docker instalado podría brindar el servicio que brinda mi aplicación sin preocuparse de preparar un entorno para ello.
 
-
+##### Quay.io
+Se ha añadido un repositorio docker a [Quay.io](https://quay.io) usando el propio dockerfile del proyecto. El repositorio creado esta en [https://quay.io/repository/jesusgn90/try-2-learn](https://quay.io/repository/jesusgn90/try-2-learn)
