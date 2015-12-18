@@ -8,36 +8,50 @@ append body
 	.container
 		form(name="compile", method="post",action="/compiled")
 			div.input
-			h3 Select language
-			select(name="language" onChange="setTemplate(this);")
-				each lang, i in langs
-					option(value=i) #{lang}
-			br
-			h3 Select RAM
-			select(name="ram")
-				option(value=128) 128MB
-				option(value=256) 256MB
-				option(value=512) 512MB
-			br
 			h3 Write code
-			textarea(name="description" id="description", cols="40", rows="11").
+			textarea(name="description" id="description").
 				if __name__ == "__main__":
 				    print "hello world!"
+			link(rel="stylesheet" href="lib/codemirror.css")
+			script(src="lib/codemirror.js")
+			script(src="mode/python.js")
+			script(src="mode/ruby.js")
+			script(src="mode/clike.js")
 			script.
+				var textArea = document.getElementById('description');
+				var editor = CodeMirror.fromTextArea(textArea,{
+					lineNumbers: true,
+					styleActiveLine: true,
+					matchBrackets: true,
+					mode: 'python'
+				});
 				python = 'if __name__ == "__main__":\n    print "Hello world"';
-				python3 = 'print "Hello world"';
+				python3 = 'print("Hello world")';
 				ruby = 'puts "hello world!"';
 				cpp = '#include <iostream>\nusing namespace std;\nint main(){\n   cout << "hello world!" << endl;\n}';
 				function setTemplate(t) {
-				var optionValue = t.value;
-				if (optionValue == "0") {
-				document.getElementById('description').innerHTML = python;
-				} else if (optionValue == "1")
-				document.getElementById('description').innerHTML = python3;
-				else if (optionValue == "2")
-				document.getElementById('description').innerHTML = ruby;
-				else if (optionValue == "3")
-				document.getElementById('description').innerHTML = cpp;
+					var optionValue = t.value;
+					if (optionValue == "0") {
+					editor.getDoc().setValue(python);
+					editor.setOption('mode','python');
+					}else if (optionValue == "1"){
+					editor.getDoc().setValue(python3);
+					editor.setOption('mode','python');
+					}else if (optionValue == "2"){
+					editor.getDoc().setValue(ruby);
+					editor.setOption('mode','ruby');
+					}else if (optionValue == "3"){
+					editor.getDoc().setValue(cpp);
+					editor.setOption('mode','clike');
+					}
 				}; 
+
 			div.actions
+			select(name="language" onChange="setTemplate(this);")
+				each lang, i in langs
+					option(value=i) #{lang}
+			select(name="ram")
+				option(value=128) 128MB of RAM
+				option(value=256) 256MB of RAM
+				option(value=512) 512MB of RAM
 			input(type="submit", value="Run Code")

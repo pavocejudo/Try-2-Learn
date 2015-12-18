@@ -9,6 +9,20 @@ append body
 		h2 Language
 		p #{lang}
 		h2 Executed code
-		pre !{code.replace(/\n/g, '<br/>').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;')}
+		textarea(name="description" id="description", cols="40", rows="11").
+			!{code}
 		h2 Output
 		pre #{data}
+
+		link(rel="stylesheet" href="lib/codemirror.css")
+		script(src="lib/codemirror.js")
+		script(src="mode/python.js")
+		script.		
+			var textArea = document.getElementById('description');
+			var editor = CodeMirror.fromTextArea(textArea,{
+				lineNumbers: true,
+				styleActiveLine: true,
+				matchBrackets: true,
+				readOnly: true,
+				mode: 'python'
+			});    
