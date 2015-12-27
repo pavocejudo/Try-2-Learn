@@ -6,6 +6,12 @@ append body
 			+nav_item("/about","active") About
 			+nav_item("/contact") Contact
 		h1 How it works
-		p bla bla bla
-		h1 Examples
-		p bla bla bla
+		mixin paso(text)
+			li #{text}
+		ul#pasos
+			+paso("The user writes some code.")
+			+paso("The user selects a language and a RAM limit, then click on run code.")
+			+paso("The server builds a docker image with minimum libraries for the language selected, and contains the user code too.")
+			+paso("The server runs the user code in a docker container based on the image created.")
+			+paso("The server returns the output of the executed code.")  
+			+paso("The server deletes the image, stops the container a deletes all files created for the user.")

@@ -11,7 +11,7 @@ append body
 			h3 Write code
 			textarea(name="description" id="description").
 				if __name__ == "__main__":
-				    print "hello world!"
+				  print "hello world!"
 			link(rel="stylesheet" href="lib/codemirror.css")
 			script(src="lib/codemirror.js")
 			script(src="mode/python.js")
@@ -44,14 +44,37 @@ append body
 					editor.getDoc().setValue(cpp);
 					editor.setOption('mode','clike');
 					}
-				}; 
-
+				};
+				function setStatus(){
+					$("#status1").text("Preparing environment...");
+					setTimeout(function(){
+						$("#status2").text('Building docker image...');
+					}, 3500);
+					setTimeout(function(){
+						$("#status3").text('Running docker container...');
+					}, 5500);
+					setTimeout(function(){
+						$("#status4").text('Waiting output...');
+					}, 7500);
+				};
 			div.actions
 			select(name="language" onChange="setTemplate(this);")
 				each lang, i in langs
 					option(value=i) #{lang}
-			select(name="ram")
+			select(name="ram" onChange="setStatus();")
 				option(value=128) 128MB of RAM
 				option(value=256) 256MB of RAM
 				option(value=512) 512MB of RAM
-			input(type="submit", value="Run Code")
+			input(id="run" ,type="submit", value="Run Code", onClick="setStatus();")
+			br
+			h3 Status
+			label(id="status0") Waiting user input...
+			br
+			label(id="status1") 
+			br			
+			label(id="status2") 
+			br
+			label(id="status3") 
+			br
+			label(id="status4") 
+

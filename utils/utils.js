@@ -3,11 +3,13 @@ crea un fichero fuente con el código del usuario */
 var create_dir = module.exports.create_dir = function(path,lang,code){
     //Creamos directorio 
     exec('mkdir utils/'+path, {});
+    //Copiamos el timer a este directorio
+    exec('cp utils/timer_python.sh utils/' +  path, {});
     var fs = require('fs');
     var endfile = '';
     if(lang === 'Python2'){
         endfile = '.py';
-        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python\nCOPY hello.py hello.py\nCMD python hello.py', function(err) {
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python\nCOPY timer_python.sh timer_python.sh\nCOPY hello.py hello.py\nCMD bash timer_python.sh', function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -16,7 +18,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     }
     if(lang === 'Python3'){
         endfile = '.py';
-        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python3\nCOPY hello.py hello.py\nCMD python3 hello.py', function(err) {
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python3\nCOPY timer_python.sh timer_python3.sh\nCOPY hello.py hello.py\nCMD bash timer_python3.sh', function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -25,7 +27,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     }
     if(lang === 'Ruby'){
         endfile = '.rb';
-        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y ruby\nCOPY hello.rb hello.rb\nCMD ruby hello.rb', function(err) {
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y ruby\nCOPY timer_python.sh timer_ruby.sh\nCOPY hello.rb hello.rb\nCMD bash timer_ruby.sh', function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -34,7 +36,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     }
     if(lang === 'C++'){
         endfile = '.cpp';
-        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get update\nRUN apt-get install -y build-essential\nCOPY hello.cpp hello.cpp\nRUN g++ hello.cpp -o hello\nCMD ./hello', function(err) {
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get update\nRUN apt-get install -y build-essential\nCOPY timer_python.sh timer_c.sh\nCOPY hello.cpp hello.cpp\nRUN g++ hello.cpp -o hello\nCMD bash timer_c.sh', function(err) {
             if(err) {
                 return console.log(err);
             }
@@ -49,10 +51,12 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     });
 }
 
+
 /* Función que crea la imagen docker */
 var build = module.exports.build = function(path){
     return exec('docker build -t ubuntu/' + path + ' -f utils/' + path + '/Dockerfile utils/' + path, {}).output;
 }
+
 
 /* Función que corre el contenedor docker */
 var run = module.exports.run = function(path,ram){
