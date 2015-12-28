@@ -14,7 +14,7 @@ Tabla de contenidos
         * [Nuevas herramientas añadidas](#nuevas-herramientas-añadidas)
       * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
       * [Dockerhub](#dockerhub)
-      * [Publicado en Amazon Web Services (AWS)](#publicado-en-amazon-web-services-(aws))
+      * [Publicado en Amazon Web Services](#publicado-en-amazon-web-services)
 
 # Try-2-Learn
 Proyecto para la asignatura Infraestructuras Virtuales 2015-16
@@ -142,7 +142,7 @@ Por tanto cualquier persona con Docker instalado podría brindar el servicio que
 ##### Quay.io
 Se ha añadido un repositorio docker a [Quay.io](https://quay.io) usando el propio dockerfile del proyecto. El repositorio creado esta en [https://quay.io/repository/jesusgn90/try-2-learn](https://quay.io/repository/jesusgn90/try-2-learn)
 
-### Publicado en Amazon Web Services (AWS)
+### Publicado en Amazon Web Services
 Actualmente ya existe una versión pública de la app funcionando, se ha creado una instancia EC2 para poder utilizar el rendimiento que nos permite la computación en la nube. Además se hace uso de un sistema dyndns para no perder la ip pública que vaya asignando Amazon.
 
 Link a la app -> [http://try-2-learn.duckdns.org/](http://try-2-learn.duckdns.org/)
