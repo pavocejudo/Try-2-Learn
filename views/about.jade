@@ -15,3 +15,15 @@ append body
 			+paso("The server runs the user code in a docker container based on the image created.")
 			+paso("The server returns the output of the executed code.")  
 			+paso("The server deletes the image, stops the container a deletes all files created for the user.")
+
+		h2 Limitations
+		mixin limit(text)
+			li #{text}
+		ul#limites
+			+limit("Execution time limited to avoid infinite loops or similar.")
+			+limit("RAM usage limited, you can choose 128MB, 256MB, 512MB in the free use of the app.")
+			+limit("Third party libraries are not allowed to use in the free use of the app.")
+
+		h2 Premium account
+		p You can use the free mode of the app to try it with some code but if you want to use more complex codes like a full Django project or a multi C++ files project you must to pay for a premium account. 
+		p Also the premium account allows you tu use bigger range of RAM, CPU usage, etc ...

@@ -14,6 +14,7 @@ Tabla de contenidos
         * [Nuevas herramientas añadidas](#nuevas-herramientas-añadidas)
       * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
       * [Dockerhub](#dockerhub)
+      * [Publicado en Amazon Web Services (AWS)](#publicado-en-amazon-web-services)
 
 # Try-2-Learn
 Proyecto para la asignatura Infraestructuras Virtuales 2015-16
@@ -93,7 +94,7 @@ Se ha creado un fichero Grunfile.js que irá creciendo con el tiempo en el que p
     Express, framework para NodeJS
     Docco, para generar la documentación de forma cómoda
 
-### Despliegue en PaaS Heroku
+### Despliegue en PaaS Heroku (ACTUALMENTE NO SE USA, MIGRADO A AMAZON)
 He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
 
 Mostraré como lo he realizado en el proyecto propio de las prácticas de la asignatura. El proyecto propio es [Try-2-Learn](https://github.com/jesusgn90/Try-2-Learn)
@@ -140,3 +141,12 @@ Por tanto cualquier persona con Docker instalado podría brindar el servicio que
 
 ##### Quay.io
 Se ha añadido un repositorio docker a [Quay.io](https://quay.io) usando el propio dockerfile del proyecto. El repositorio creado esta en [https://quay.io/repository/jesusgn90/try-2-learn](https://quay.io/repository/jesusgn90/try-2-learn)
+
+### Publicado en Amazon Web Services (AWS)
+Actualmente ya existe una versión pública de la app funcionando, se ha creado una instancia EC2 para poder utilizar el rendimiento que nos permite la computación en la nube. Además se hace uso de un sistema dyndns para no perder la ip pública que vaya asignando Amazon.
+
+Link a la app -> [http://try-2-learn.duckdns.org/](http://try-2-learn.duckdns.org/)
+
+Info sobre EC2 -> [https://aws.amazon.com/es/ec2/](https://aws.amazon.com/es/ec2/)
+
+Info sobre DuckDNS -> [http://www.duckdns.org/](http://www.duckdns.org/)
