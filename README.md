@@ -14,7 +14,7 @@ Tabla de contenidos
         * [Nuevas herramientas añadidas](#nuevas-herramientas-añadidas)
       * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
       * [Dockerhub](#dockerhub)
-      * [Publicado en Amazon Web Services (AWS)](#publicado-en-amazon-web-services)
+      * [Publicado en Amazon Web Services (AWS)](#publicado-en-amazon-web-services-(aws))
 
 # Try-2-Learn
 Proyecto para la asignatura Infraestructuras Virtuales 2015-16
