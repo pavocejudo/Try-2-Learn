@@ -28,7 +28,7 @@ router.post('/compiled',function(req, res, next) {
                 res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
             }
             data = docker.stop(path);
-        }, 2000);
+        }, 3000);
     }
 });
 
