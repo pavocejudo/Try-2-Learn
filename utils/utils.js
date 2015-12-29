@@ -4,7 +4,6 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     //Creamos directorio 
     exec('mkdir utils/' + path, {});
     //Copiamos el timer a este directorio
-
     var fs = require('fs');
     var endfile = '';
     if(lang === 'Python2'){
@@ -41,6 +40,16 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
         exec('cp utils/timer_c.sh utils/' +  path, {});
         endfile = '.cpp';
         fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get update\nRUN apt-get install -y build-essential\nCOPY timer_c.sh timer_c.sh\nCOPY hello.cpp hello.cpp\nRUN g++ hello.cpp -o hello\nCMD bash timer_c.sh', function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            console.log("Dockerfile written C");
+        });
+    }
+    if(lang === 'Java'){
+        exec('cp utils/timer_java.sh utils/' +  path, {});
+        endfile = '.cpp';
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM ubuntu:latest\nRUN apt-get install -y python-software-properties\nRUN apt-get install -y software-properties-common\nRUN add-apt-repository -y ppa:webupd8team/java\nRUN apt-get update\nRUN echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections\nRUN apt-get install -y oracle-java7-installer\nCOPY timer_java.sh timer_java.sh\nCOPY hello.java hello.java\nRUN javac hello.java \nCMD bash timer_java.sh', function(err) {
             if(err) {
                 return console.log(err);
             }

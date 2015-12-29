@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var langs = ["Python2", "Python3", "Ruby", "C++"];
+var langs = ["Python2", "Python3", "Ruby", "C++", "Java"];
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { langs: langs });
