@@ -49,7 +49,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     if(lang === 'Java'){
         exec('cp utils/timer_java.sh utils/' +  path, {});
         endfile = '.java';
-        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM buildpack-deps:jessie-curl\nRUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*\nENV LANG C.UTF-8\nENV JAVA_VERSION 7u91\nENV JAVA_DEBIAN_VERSION 7u91-2.6.3-1~deb8u1\nRUN apt-get update && apt-get install -y openjdk-7-jre-headless="$JAVA_DEBIAN_VERSION" && rm -rf /var/lib/apt/lists/*\nCOPY timer_java.sh timer_java.sh\nCOPY hello.java hello.java\nRUN javac hello.java \nCMD bash timer_java.sh', function(err) {
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM java:7\nCOPY timer_java.sh timer_java.sh\nCOPY hello.java hello.java\nRUN javac hello.java \nCMD bash timer_java.sh', function(err) {
             if(err) {
                 return console.log(err);
             }
