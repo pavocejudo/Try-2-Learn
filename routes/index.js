@@ -21,8 +21,8 @@ router.post('/compiled',function(req, res, next) {
         /* Establecemos un timeout para esperar a la función create_dir */
         setTimeout(function(){
             var data = docker.build(path);
-            setTimeout(function(){
-                data = docker.run(path,ram);
+            data = setTimeout(function(){
+                return docker.run(path,ram);
             },3000);            
             if(data.search('ERROR') != -1){
                 res.render('compiled_error', { error: 'Execution time exceeded, probably there is an infinite loop in your code...' });
