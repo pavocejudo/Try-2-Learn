@@ -49,7 +49,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
     if(lang === 'Java'){
         exec('cp utils/timer_java.sh utils/' +  path, {});
         endfile = '.java';
-        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM chug/ubuntu14.04x64\nRUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list\nRUN apt-get update\nRUN echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections\nRUN add-apt-repository -y ppa:webupd8team/java\nRUN apt-get update\nRUN apt-get install -y oracle-java7-installer\nENV JAVA_HOME /usr/lib/jvm/java-7-oracle\nCOPY timer_java.sh timer_java.sh\nCOPY hello.java hello.java\nRUN javac hello.java \nCMD bash timer_java.sh', function(err) {
+        fs.writeFile('utils/' + path + '/Dockerfile', 'FROM buildpack-deps:jessie-curl\nRUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*\nENV LANG C.UTF-8\nENV JAVA_VERSION 7u91\nENV JAVA_DEBIAN_VERSION 7u91-2.6.3-1~deb8u1\nRUN apt-get update && apt-get install -y openjdk-7-jre-headless="$JAVA_DEBIAN_VERSION" && rm -rf /var/lib/apt/lists/*\nCOPY timer_java.sh timer_java.sh\nCOPY hello.java hello.java\nRUN javac hello.java \nCMD bash timer_java.sh', function(err) {
             if(err) {
                 return console.log(err);
             }
