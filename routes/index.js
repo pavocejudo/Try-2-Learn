@@ -27,6 +27,8 @@ router.post('/compiled',function(req, res, next) {
             data = docker.run(path,ram);
             if(data.search('ERROR') != -1){
                 res.render('compiled_error', { error: 'Execution time exceeded, probably there is an infinite loop in your code...' });
+            }else if(data.search('Unable to find image') != -1){
+                res.render('compiled_error', { error: 'Compilation error, something was wrong in your code' });
             }else{            
                 res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
             }
