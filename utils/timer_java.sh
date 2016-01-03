@@ -1,3 +1,3 @@
 java myCode &
-sleep 1
+sleep 5
 kill $! 2>/dev/null && echo "ERROR"

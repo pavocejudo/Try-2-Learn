@@ -20,17 +20,17 @@ router.post('/compiled',function(req, res, next) {
         docker.create_dir(path,lang,code);
         /* Establecemos un timeout para esperar a la función create_dir */
         setTimeout(function(){
-            var data = docker.build(path);
+            var data_build = docker.build(path);
             setTimeout(function(){
                 console.log('waiting for build...');
             },3000);            
-            data = docker.run(path,ram);
+            var data = docker.run(path,ram);
             if(data.search('ERROR') != -1){
                 res.render('compiled_error', { error: 'Execution time exceeded, probably there is an infinite loop in your code...' });
             }else if(data.search('Unable to find image') != -1){
-                res.render('compiled_error', { error: 'Compilation error, something was wrong in your code' });
+                res.render('compiled_error', { error: 'Compilation error, something was wrong in your code', build: data_build.toString() });
             }else{            
-                res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)] });
+                res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)], build: data_build.toString() });
             }
             data = docker.stop(path);
         }, 3000);
