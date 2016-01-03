@@ -10,7 +10,7 @@ router.post('/compiled',function(req, res, next) {
     require('shelljs/global');
     var is_installed = exec('dpkg -l | grep docker', {}).output;
     if(is_installed === ''){
-        res.render('compiled_error', { error: 'docker not installed'});
+        res.render('compiled_error', { error: 'docker not installed', build: data_build.toString()});
     }else{
         var docker = require('../utils/utils');
         var lang = langs[parseInt(req.body.language)];
@@ -26,7 +26,7 @@ router.post('/compiled',function(req, res, next) {
             },3000);            
             var data = docker.run(path,ram);
             if(data.search('ERROR') != -1){
-                res.render('compiled_error', { error: 'Execution time exceeded, probably there is an infinite loop in your code...' });
+                res.render('compiled_error', { error: 'Execution time exceeded, probably there is an infinite loop in your code...', build: data_build.toString() });
             }else if(data.search('Unable to find image') != -1){
                 res.render('compiled_error', { error: 'Compilation error, something was wrong in your code', build: data_build.toString() });
             }else{            
