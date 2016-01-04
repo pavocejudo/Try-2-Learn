@@ -29,6 +29,8 @@ router.post('/compiled',function(req, res, next) {
                 res.render('compiled_error', { error: 'Execution time exceeded, probably there is an infinite loop in your code...', build: data_build.toString() });
             }else if(data.search('Unable to find image') != -1){
                 res.render('compiled_error', { error: 'Compilation error, something was wrong in your code', build: data_build.toString() });
+            }else if((data.search('timer') != -1) && (data.search('Killed') != -1)){
+                res.render('compiled_error', { error: 'RAM usage exceeded', build: data_build.toString() });
             }else{            
                 res.render('compiled', { data: data.toString(), code: code, lang: langs[parseInt(req.body.language)], build: data_build.toString() });
             }
