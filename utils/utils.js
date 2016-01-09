@@ -1,9 +1,8 @@
-/* Función que crea un directorio temporal, crea un Dockerfile adecuado,
-crea un fichero fuente con el código del usuario */
+//Función que crea un directorio temporal, crea un Dockerfile adecuado,crea un fichero fuente con el código del usuario. 
 var create_dir = module.exports.create_dir = function(path,lang,code){
-    //Creamos directorio 
+    //Crea un directorio temporal. 
     exec('mkdir utils/' + path, {});
-    //Copiamos el timer a este directorio
+    //Copia el timer así como un Dockerfile adecuado a este directorio.
     var fs = require('fs');
     var endfile = '';
     if(lang === 'Python2'){
@@ -56,6 +55,7 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
             console.log("Dockerfile written Java");
         });
     }
+    //Copia el código del usuario en este directorio.
     fs.writeFile('utils/' + path + '/hello' + endfile, code.toString(), function(err) {
         if(err) {
             return console.log(err);
@@ -65,20 +65,19 @@ var create_dir = module.exports.create_dir = function(path,lang,code){
 }
 
 
-/* Función que crea la imagen docker */
+// Función que crea una imagen docker en base a un Dockerfile.
 var build = module.exports.build = function(path){
     return exec('docker build -t ubuntu/' + path + ' -f utils/' + path + '/Dockerfile utils/' + path, {}).output;
 }
 
 
-/* Función que corre el contenedor docker */
+// Función que corre el contenedor docker basado en una imagen ya existente.
 var run = module.exports.run = function(path,ram){
     console.log('Running a container with ' + ram + 'MB of RAM...');
     return exec('docker run --memory=' + ram + 'M --cpu-quota=50000 ubuntu/' + path, {}).output;
 }
 
-/* Función que detiene todos los contenedores en status 'Exited', la imagen creada y elimina el directorio 
-usado por el cliente */
+// Función que detiene todos los contenedores en status 'Exited', la imagen creada y elimina el directorio usado por el cliente. 
 var stop = module.exports.stop = function(path){
     exec("docker ps -a | grep 'Exited' | awk '{print $1}' | xargs docker rm", {}).output;
     exec('docker rmi ubuntu/' + path , {}).output;

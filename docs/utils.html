@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>utils.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
+              
+                
+                <a class="source" href="test.html">
+                  test.js
+                </a>
+              
+                
+                <a class="source" href="utils.html">
+                  utils.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>utils.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Función que crea un directorio temporal, crea un Dockerfile adecuado,crea un fichero fuente con el código del usuario. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> create_dir = <span class="hljs-built_in">module</span>.exports.create_dir = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path,lang,code</span>)</span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Crea un directorio temporal. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    exec(<span class="hljs-string">'mkdir utils/'</span> + path, {});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Copia el timer así como un Dockerfile adecuado a este directorio.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+    <span class="hljs-keyword">var</span> endfile = <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">if</span>(lang === <span class="hljs-string">'Python2'</span>){
+        exec(<span class="hljs-string">'cp utils/timer_python.sh utils/'</span> +  path, {});
+        endfile = <span class="hljs-string">'.py'</span>;
+        fs.writeFile(<span class="hljs-string">'utils/'</span> + path + <span class="hljs-string">'/Dockerfile'</span>, <span class="hljs-string">'FROM ubuntu:latest\nRUN apt-get install -y python\nCOPY timer_python.sh timer_python.sh\nCOPY hello.py hello.py\nCMD bash timer_python.sh'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+            <span class="hljs-keyword">if</span>(err) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+            }
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dockerfile written python"</span>);
+        });
+    }
+    <span class="hljs-keyword">if</span>(lang === <span class="hljs-string">'Python3'</span>){
+        exec(<span class="hljs-string">'cp utils/timer_python3.sh utils/'</span> +  path, {});
+        endfile = <span class="hljs-string">'.py'</span>;
+        fs.writeFile(<span class="hljs-string">'utils/'</span> + path + <span class="hljs-string">'/Dockerfile'</span>, <span class="hljs-string">'FROM ubuntu:latest\nRUN apt-get install -y python3\nCOPY timer_python3.sh timer_python3.sh\nCOPY hello.py hello.py\nCMD bash timer_python3.sh'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+            <span class="hljs-keyword">if</span>(err) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+            }
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dockerfile written python3"</span>);
+        });
+    }
+    <span class="hljs-keyword">if</span>(lang === <span class="hljs-string">'Ruby'</span>){
+        exec(<span class="hljs-string">'cp utils/timer_ruby.sh utils/'</span> +  path, {});
+        endfile = <span class="hljs-string">'.rb'</span>;
+        fs.writeFile(<span class="hljs-string">'utils/'</span> + path + <span class="hljs-string">'/Dockerfile'</span>, <span class="hljs-string">'FROM ubuntu:latest\nRUN apt-get install -y ruby\nCOPY timer_ruby.sh timer_ruby.sh\nCOPY hello.rb hello.rb\nCMD bash timer_ruby.sh'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+            <span class="hljs-keyword">if</span>(err) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+            }
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dockerfile written ruby"</span>);
+        });
+    }
+    <span class="hljs-keyword">if</span>(lang === <span class="hljs-string">'C++'</span>){
+        exec(<span class="hljs-string">'cp utils/timer_c.sh utils/'</span> +  path, {});
+        endfile = <span class="hljs-string">'.cpp'</span>;
+        fs.writeFile(<span class="hljs-string">'utils/'</span> + path + <span class="hljs-string">'/Dockerfile'</span>, <span class="hljs-string">'FROM ubuntu:latest\nRUN apt-get update\nRUN apt-get install -y build-essential\nCOPY timer_c.sh timer_c.sh\nCOPY hello.cpp hello.cpp\nRUN g++ hello.cpp -o hello\nCMD bash timer_c.sh'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+            <span class="hljs-keyword">if</span>(err) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+            }
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dockerfile written C"</span>);
+        });
+    }
+    <span class="hljs-keyword">if</span>(lang === <span class="hljs-string">'Java'</span>){
+        exec(<span class="hljs-string">'cp utils/timer_java.sh utils/'</span> +  path, {});
+        endfile = <span class="hljs-string">'.java'</span>;
+        fs.writeFile(<span class="hljs-string">'utils/'</span> + path + <span class="hljs-string">'/Dockerfile'</span>, <span class="hljs-string">'FROM java:7\nCOPY timer_java.sh timer_java.sh\nCOPY hello.java hello.java\nRUN javac hello.java \nCMD bash timer_java.sh'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+            <span class="hljs-keyword">if</span>(err) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+            }
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dockerfile written Java"</span>);
+        });
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Copia el código del usuario en este directorio.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    fs.writeFile(<span class="hljs-string">'utils/'</span> + path + <span class="hljs-string">'/hello'</span> + endfile, code.toString(), <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+        <span class="hljs-keyword">if</span>(err) {
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(err);
+        }
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Code written"</span>);
+    });
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Función que crea una imagen docker en base a un Dockerfile.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> build = <span class="hljs-built_in">module</span>.exports.build = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>)</span>{
+    <span class="hljs-keyword">return</span> exec(<span class="hljs-string">'docker build -t ubuntu/'</span> + path + <span class="hljs-string">' -f utils/'</span> + path + <span class="hljs-string">'/Dockerfile utils/'</span> + path, {}).output;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Función que corre el contenedor docker basado en una imagen ya existente.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> run = <span class="hljs-built_in">module</span>.exports.run = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path,ram</span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Running a container with '</span> + ram + <span class="hljs-string">'MB of RAM...'</span>);
+    <span class="hljs-keyword">return</span> exec(<span class="hljs-string">'docker run --memory='</span> + ram + <span class="hljs-string">'M --cpu-quota=50000 ubuntu/'</span> + path, {}).output;
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Función que detiene todos los contenedores en status ‘Exited’, la imagen creada y elimina el directorio usado por el cliente. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> stop = <span class="hljs-built_in">module</span>.exports.stop = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">path</span>)</span>{
+    exec(<span class="hljs-string">"docker ps -a | grep 'Exited' | awk '{print $1}' | xargs docker rm"</span>, {}).output;
+    exec(<span class="hljs-string">'docker rmi ubuntu/'</span> + path , {}).output;
+    <span class="hljs-keyword">return</span> exec(<span class="hljs-string">'rm -r utils/'</span> + path , {}).output;
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
