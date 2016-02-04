@@ -11,8 +11,8 @@ Vagrant.configure(2) do |config|
   config.vm.provider :aws do |aws, override|
  
     #AWS Settings
-    aws.access_key_id = "yourkey"
-    aws.secret_access_key = "yoursecret"
+    aws.access_key_id = ENV['ACCESS_KEY_ID']
+    aws.secret_access_key = ENV['SECRET_ACCESS_KEY']
     aws.region = "us-west-2"
  
     aws.tags = {
