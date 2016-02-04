@@ -1,7 +1,7 @@
 ---
-- hosts: vagrant
+- hosts: all
   remote_user: ubuntu
-  sudo: yes
+  sudo: true
 
   tasks:
     - name: Add apt-key for docker
