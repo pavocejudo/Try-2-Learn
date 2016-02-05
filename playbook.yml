@@ -16,13 +16,19 @@
     - name: apt policy for docker
       command: apt-cache policy docker-engine 
 
-    - name: Instalar todos los paquetes necesarios para la aplicacion
+    - name: Instalar curl
       apt: name=curl state=present
+    - name: Instalar build-essential
       apt: name=build-essential state=present
+    - name: Instalar git
       apt: name=git state=present
+    - name: Instalar nodejs
       apt: name=nodejs state=present
+    - name: Instalar npm
       apt: name=npm state=present
+    - name: Instalar docker-engine
       apt: name=docker-engine state=present
+    - name: Instalar daemon
       apt: name=daemon state=present
 
     - name: Clone Try-2-Learn
