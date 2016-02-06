@@ -8,13 +8,16 @@
       command: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
     - name: Add apt-repository
-      command: echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list.d/docker.list
-    
+      shell: echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list.d/docker.list
+
     - name: apt-get update
       apt: update_cache=yes
-    
+   
     - name: apt policy for docker
       command: apt-cache policy docker-engine 
+
+    - name: apt-get update
+      apt: update_cache=yes
 
     - name: Instalar curl
       apt: name=curl state=present
@@ -26,18 +29,17 @@
       apt: name=nodejs state=present
     - name: Instalar npm
       apt: name=npm state=present
-    - name: Instalar docker-engine
+    - name: Instalar docker
       apt: name=docker-engine state=present
-    - name: Instalar daemon
-      apt: name=daemon state=present
 
     - name: Clone Try-2-Learn
-      git: repo=https://github.com/jesusgn90/Try-2-Learn.git  dest=~/Try-2-Learn 
-    - name: npm install
-      shell: cd /home/ubuntu/Try-2-Learn && npm install
+      git: repo=https://github.com/jesusgn90/Try-2-Learn.git  dest=/home/ubuntu/Try-2-Learn
 
-    - name: Runs docker
-      shell: daemon -- docker -d 
+#    - name: npm install
+#      shell: cd /home/ubuntu/Try-2-Learn && npm install
 
-    - name: Runs app
-      shell: cd /home/ubuntu/Try-2-Learn && daemon -- nodejs bin/www 
+#    - name: Runs docker
+#      shell: nohup docker -d 
+
+#    - name: Runs app
+#      shell: nohup nodejs /home/ubuntu/Try-2-Learn/bin/www 
