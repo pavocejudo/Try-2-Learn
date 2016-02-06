@@ -176,7 +176,7 @@ Outbound
     Type        Protocol Port Range Destination
     All traffic All      All        0.0.0.0/0
 
-Como curiosidad se añade un script en python que usando la librería *boto* nos permite ver a modo de resumen nuestros instancias y sus grupos en AWS, lo incluyo en el repositorio, pueden verlo en [](), para ejecutarlo deben crear el fichero ~/.aws/credentials con las keys de AWS y luego ya pueden:
+Como curiosidad se añade un script en python que usando la librería *boto* nos permite ver a modo de resumen nuestros instancias y sus grupos en AWS, lo incluyo en el repositorio, pueden verlo en [https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/security_verify.py](https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/security_verify.py), para ejecutarlo deben crear el fichero ~/.aws/credentials con las keys de AWS y luego ya pueden:
 
     python security_verify.py
 
