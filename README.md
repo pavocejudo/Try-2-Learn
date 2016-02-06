@@ -176,6 +176,10 @@ Outbound
     Type        Protocol Port Range Destination
     All traffic All      All        0.0.0.0/0
 
+Como curiosidad se añade un script en python que usando la librería *boto* nos permite ver a modo de resumen nuestros instancias y sus grupos en AWS, lo incluyo en el repositorio, pueden verlo en [](), para ejecutarlo deben crear el fichero ~/.aws/credentials con las keys de AWS y luego ya pueden:
+
+    python security_verify.py
+
 El tipo de instancia creada en AWS tendría como sistema operativo:
 
     ubuntu-trusty-14.04-amd64
