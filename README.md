@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jesusgn90/Try-2-Learn.svg?branch=master)](https://travis-ci.org/jesusgn90/Try-2-Learn)
+
 Tabla de contenidos
 =================
 
@@ -80,7 +82,6 @@ el fichero .travis.yml, en el cual he añadido lo siguiente:
     node_js:
       - "0.10"
     before_install:
-      - docker pull ubuntu:latest
       - npm install
     script:
       - grunt test
