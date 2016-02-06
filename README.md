@@ -16,9 +16,10 @@ Tabla de contenidos
       * [Publicado en Amazon Web Services](#publicado-en-amazon-web-services)
       * [Despliegue en Amazon Web Services](#despliegue-en-amazon-web-services)
         * [Otros aspectos a tener en cuenta](#otros-aspectos-a-tener-en-cuenta)
+          * [Puertos](#puertos)
         * [Aprovisionando la máquina](#aprovisionando-la-máquina)
         * [Ya entiendo... ¿Entonces qué hago?](#ya-entiendo...-¿entonces-qué-hago?)
-          * [Puertos](#puertos)
+
       * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
       * [Dockerhub](#dockerhub)
 
