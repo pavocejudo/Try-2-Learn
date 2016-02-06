@@ -1,12 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
- 
-# Vagrant on AWS 
-
- 
 Vagrant.configure(2) do |config|
  
   config.vm.box = "dummybox-aws"
+
   config.vm.hostname = "try2learn"
   config.vm.provider :aws do |aws, override|
  
@@ -23,7 +20,7 @@ Vagrant.configure(2) do |config|
  
     #Override Settings
     override.ssh.username = "ubuntu"
-    override.ssh.private_key_path = "try-2-learn.pem"
+    override.ssh.private_key_path = ENV['PRIVATE_KEY_PATH']
  
     aws.region_config "us-west-2" do |region|
       region.ami = 'ami-35143705'
@@ -38,10 +35,5 @@ Vagrant.configure(2) do |config|
         ansible.limit = 'all'
         ansible.verbose = "vv"
     end 
- 
   end
- 
 end
-
-
-

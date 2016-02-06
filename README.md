@@ -12,9 +12,14 @@ Tabla de contenidos
       * [Integración continua](#integración-continua)
         * [Grunt](#grunt)
         * [Nuevas herramientas añadidas](#nuevas-herramientas-añadidas)
+      * [Quay.io](#quay.io)
+      * [Publicado en Amazon Web Services](#publicado-en-amazon-web-services)
+      * [Despliegue en Amazon Web Services](#despliegue-en-amazon-web-services)
+        * [Otros aspectos a tener en cuenta](#otros-aspectos-a-tener-en-cuenta)
+        * [Aprovisionando la máquina](#aprovisionando-la-máquina)
+        * [Ya entiendo... ¿Entonces qué hago?](#ya-entiendo...-¿entonces-qué-hago?)
       * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
       * [Dockerhub](#dockerhub)
-      * [Publicado en Amazon Web Services](#publicado-en-amazon-web-services)
 
 # Try-2-Learn
 Proyecto para la asignatura Infraestructuras Virtuales 2015-16
@@ -94,6 +99,177 @@ Se ha creado un fichero Grunfile.js que irá creciendo con el tiempo en el que p
     Express, framework para NodeJS
     Docco, para generar la documentación de forma cómoda
 
+##### Quay.io
+Se ha añadido un repositorio docker a [Quay.io](https://quay.io) usando el propio dockerfile del proyecto. El repositorio creado esta en [https://quay.io/repository/jesusgn90/try-2-learn](https://quay.io/repository/jesusgn90/try-2-learn)
+
+### Publicado en Amazon Web Services
+Actualmente ya existe una versión pública de la app funcionando, se ha creado una instancia EC2 para poder utilizar el rendimiento que nos permite la computación en la nube. Además se hace uso de un sistema dyndns para no perder la ip pública que vaya asignando Amazon.
+
+Link a la app -> [http://try-2-learn.duckdns.org/](http://try-2-learn.duckdns.org/)
+
+Info sobre EC2 -> [https://aws.amazon.com/es/ec2/](https://aws.amazon.com/es/ec2/)
+
+Info sobre DuckDNS -> [http://www.duckdns.org/](http://www.duckdns.org/)
+
+### Despliegue en Amazon Web Services 
+Podemos reproducir el entorno de la aplicación completamente en una instancia EC2 de Amazon. Para ello el usuario tiene el siguiente Vagrantfile para usar con Vagrant:
+
+    # -*- mode: ruby -*-
+    # vi: set ft=ruby :
+    Vagrant.configure(2) do |config|
+     
+      config.vm.box = "dummybox-aws"
+
+      config.vm.hostname = "try2learn"
+      config.vm.provider :aws do |aws, override|
+     
+        #AWS Settings
+        aws.access_key_id = ENV['ACCESS_KEY_ID']
+        aws.secret_access_key = ENV['SECRET_ACCESS_KEY']
+        aws.region = "us-west-2"
+     
+        aws.tags = {
+          'Name' => 'Try-2-Learn',
+          'Team' => 'Try-2-Learn',
+          'Status' => 'active'
+        }
+     
+        #Override Settings
+        override.ssh.username = "ubuntu"
+        override.ssh.private_key_path = ENV['PRIVATE_KEY_PATH']
+     
+        aws.region_config "us-west-2" do |region|
+          region.ami = 'ami-35143705'
+          region.instance_type = 't2.micro'
+          region.keypair_name = "try-2-learn"
+          region.security_groups = "launch-wizard-3"
+        end
+
+        # Aprovisionamiento
+        config.vm.provision :ansible do |ansible|  
+            ansible.playbook = "playbook.yml"
+            ansible.limit = 'all'
+            ansible.verbose = "vv"
+        end 
+      end
+    end
+
+Como vemos tenemos tres variables de entorno que deben ser configuradas o bien editadas en el fichero Vagrantfile y suministrarlas directamente. Las variables son valores de su propia cuenta de Amazon. 
+
+aws.access_key_id y aws.secret_access_key son sus claves que puede encontrar a través de la consola de gestión de AWS. 
+
+private_key_path se refiere a la ruta hacia su certificado .pem de AWS.
+
+#### Otros aspectos a tener en cuenta
+Se debe tener creado un security_groups, en este caso tiene el nombre de launch-wizard-3, pero puede tener cualquier otro nombre, que exista en su cuenta de AWS y que además tenga la siguientes características:
+
+Inbound
+
+    Type Protocol Port Range Source
+    HTTP TCP      80         0.0.0.0/0
+    SSH  TCP      22         0.0.0.0/0
+
+Outbound
+
+    Type        Protocol Port Range Destination
+    All traffic All      All        0.0.0.0/0
+
+El tipo de instancia creada en AWS tendría como sistema operativo:
+
+    ubuntu-trusty-14.04-amd64
+
+Es una instancia de tipo:
+
+    t2.micro
+
+Estos parámetros pueden ser modificados, la imagen de ubuntu se adapta bien a las necesidades de la aplicación pero pueden probarse otras. El tipo de instancia es la básica de AWS, pero según las necesidades que tengamos puede usarse una de mayor calibre sin problemas. Estos parámetros son los siguientes:
+
+      region.ami = 'ami-35143705'
+      region.instance_type = 't2.micro'
+
+#### Aprovisionando la máquina
+Se hace uso de Ansible para el aprovisionamiento. Como vemos en el Vagrantfile se incluye una parte no mencionada dedicada al aprovisionamiento con Ansible. Esta parte hace uso del siguiente playbook:
+
+    ---
+    - hosts: default
+      remote_user: ubuntu
+      sudo: true
+
+      tasks:
+        - name: Add apt-key for docker
+          command: apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+        - name: Add apt-repository
+          shell: echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list.d/docker.list
+
+        - name: apt-get update
+          apt: update_cache=yes
+       
+        - name: apt policy for docker
+          command: apt-cache policy docker-engine 
+
+        - name: apt-get update
+          apt: update_cache=yes
+
+        - name: Instalar curl
+          apt: name=curl state=present
+        - name: Instalar build-essential
+          apt: name=build-essential state=present
+        - name: Instalar git
+          apt: name=git state=present
+        - name: Instalar nodejs
+          apt: name=nodejs state=present
+        - name: Instalar npm
+          apt: name=npm state=present
+        - name: Instalar docker
+          apt: name=docker-engine state=present
+
+        - name: Clone Try-2-Learn
+          git: repo=https://github.com/jesusgn90/Try-2-Learn.git  dest=/home/ubuntu/Try-2-Learn
+
+        - name: npm install
+          npm: path=/home/ubuntu/Try-2-Learn
+
+    #    - name: Runs docker
+    #      shell: nohup docker -d 
+
+    #    - name: Runs app
+    #      shell: nohup nodejs /home/ubuntu/Try-2-Learn/bin/www 
+
+Con esto tendríamos instaladas las dependencias de la aplicación para que funcione correctamente.
+
+#### Ya entiendo... ¿Entonces qué hago?
+Para un correcto despliegue se usarán las siguientes versiones:
+
+    Vagrant 1.7.4
+    Ansible 1.6
+
+Para su instalación se recomienda por un lado usar gemas de Ruby con Vagrant y pip para Ansible.
+
+[https://www.vagrantup.com/](https://www.vagrantup.com/)
+
+[https://rubygems.org/](https://rubygems.org/)
+
+[https://pypi.python.org/pypi/pip](https://pypi.python.org/pypi/pip)
+
+[www.ansible.com](www.ansible.com)
+
+Disponiendo únicamente de los ficheros Vagrantfile y playbook.yml podríamos desplegar sin problemas en AWS, con ambos ficheros bajo el mismo directorio, por ejemplo:
+
+    /
+    |_myApp
+        |_Vagrantfile
+        |_playbook.yml
+
+Ejecutamos:
+
+    vagrant up --provider=aws
+
+De esta forma se realizarán los siguientes pasos:
+
+    1. Creación de instancia del tipo especificado en el Vagrantfile
+    2. Aprovisionamiento mediante Ansible, a través del playbook.yml
+
 ### Despliegue en PaaS Heroku (ACTUALMENTE NO SE USA, MIGRADO A AMAZON)
 He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
 
@@ -139,14 +315,3 @@ Abrimos un navegador y ya podemos acceder:
 
 Por tanto cualquier persona con Docker instalado podría brindar el servicio que brinda mi aplicación sin preocuparse de preparar un entorno para ello.
 
-##### Quay.io
-Se ha añadido un repositorio docker a [Quay.io](https://quay.io) usando el propio dockerfile del proyecto. El repositorio creado esta en [https://quay.io/repository/jesusgn90/try-2-learn](https://quay.io/repository/jesusgn90/try-2-learn)
-
-### Publicado en Amazon Web Services
-Actualmente ya existe una versión pública de la app funcionando, se ha creado una instancia EC2 para poder utilizar el rendimiento que nos permite la computación en la nube. Además se hace uso de un sistema dyndns para no perder la ip pública que vaya asignando Amazon.
-
-Link a la app -> [http://try-2-learn.duckdns.org/](http://try-2-learn.duckdns.org/)
-
-Info sobre EC2 -> [https://aws.amazon.com/es/ec2/](https://aws.amazon.com/es/ec2/)
-
-Info sobre DuckDNS -> [http://www.duckdns.org/](http://www.duckdns.org/)
