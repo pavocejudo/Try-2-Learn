@@ -16,6 +16,7 @@ Tabla de contenidos
       * [Publicado en Amazon Web Services](#publicado-en-amazon-web-services)
       * [Despliegue en Amazon Web Services](#despliegue-en-amazon-web-services)
         * [Otros aspectos a tener en cuenta](#otros-aspectos-a-tener-en-cuenta)
+          * [Scripts para gestionar security_groups AWS](#scripts-para-gestionar-security_groups-aws)
           * [Puertos](#puertos)
         * [Aprovisionando la máquina](#aprovisionando-la-máquina)
         * [Ya entiendo... ¿Entonces qué hago?](#ya-entiendo...-¿entonces-qué-hago?)
@@ -162,6 +163,19 @@ aws.access_key_id y aws.secret_access_key son sus claves que puede encontrar a t
 
 private_key_path se refiere a la ruta hacia su certificado .pem de AWS.
 
+El tipo de instancia creada en AWS tendría como sistema operativo:
+
+    ubuntu-trusty-14.04-amd64
+
+Es una instancia de tipo:
+
+    t2.micro
+
+Estos parámetros pueden ser modificados, la imagen de ubuntu se adapta bien a las necesidades de la aplicación pero pueden probarse otras. El tipo de instancia es la básica de AWS, pero según las necesidades que tengamos puede usarse una de mayor calibre sin problemas. Estos parámetros son los siguientes:
+
+      region.ami = 'ami-35143705'
+      region.instance_type = 't2.micro'
+
 #### Otros aspectos a tener en cuenta
 Se debe tener creado un security_groups, en este caso tiene el nombre de launch-wizard-3, pero puede tener cualquier otro nombre, que exista en su cuenta de AWS y que además tenga la siguientes características:
 
@@ -176,22 +190,29 @@ Outbound
     Type        Protocol Port Range Destination
     All traffic All      All        0.0.0.0/0
 
-Como curiosidad se añade un script en python que usando la librería *boto* nos permite ver a modo de resumen nuestros instancias y sus grupos en AWS, lo incluyo en el repositorio, pueden verlo en [https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/security_verify.py](https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/security_verify.py), para ejecutarlo deben crear el fichero ~/.aws/credentials con las keys de AWS y luego ya pueden:
+##### Scripts para gestionar security_groups AWS
+Para crear fácilmente un grupo de seguridad he creado el siguiente script en Python que nos permite fácilmente crear un grupo de seguridad, el script por defecto habilita los puertos TCP 22,80. Pero puede adaptarse a las necesidades de cada uno [https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/create_group.py](https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/create_group.py), (para ejecutarlo deben crear el fichero ~/.aws/credentials con las keys de AWS).
+
+    import boto
+    import boto.ec2
+    from sys import argv
+    name = raw_input('Name for the group?')
+    description = raw_input('Description for de group?')
+    vpc = raw_input('Wich vpc_id? (example vpc-65da7a00)')
+    connection = boto.ec2.connect_to_region('us-west-2') 
+    create = connection.create_security_group(name, description, vpc)
+    create.authorize('tcp',80,80,'0.0.0.0/0')
+    create.authorize('tcp',22,22,'0.0.0.0/0')
+    print create, create.id, create.name
+    print 'Enabled tcp 22,80 ports'
+
+Para usarlo:
+
+    python create_group.py
+
+Se añade además un script en python que usando la librería *boto* nos permite ver a modo de resumen nuestros instancias y sus grupos en AWS, lo incluyo en el repositorio, pueden verlo en [https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/security_verify.py](https://github.com/jesusgn90/Try-2-Learn/blob/master/utils/security_verify.py), para ejecutarlo deben crear el fichero ~/.aws/credentials con las keys de AWS y luego ya pueden:
 
     python security_verify.py
-
-El tipo de instancia creada en AWS tendría como sistema operativo:
-
-    ubuntu-trusty-14.04-amd64
-
-Es una instancia de tipo:
-
-    t2.micro
-
-Estos parámetros pueden ser modificados, la imagen de ubuntu se adapta bien a las necesidades de la aplicación pero pueden probarse otras. El tipo de instancia es la básica de AWS, pero según las necesidades que tengamos puede usarse una de mayor calibre sin problemas. Estos parámetros son los siguientes:
-
-      region.ami = 'ami-35143705'
-      region.instance_type = 't2.micro'
 
 ##### Puertos
 Si se desea servir la aplicación por un puerto diferente al 80, debemos modificar el puerto en la aplicación así como añadir una regla en AWS, a continuación se muestra un ejemplo para usar el 3001:
