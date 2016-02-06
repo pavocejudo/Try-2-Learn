@@ -231,10 +231,19 @@ Se hace uso de Ansible para el aprovisionamiento. Como vemos en el Vagrantfile s
           npm: path=/home/ubuntu/Try-2-Learn
 
     #    - name: Runs docker
-    #      shell: nohup docker -d 
+    #      shell: nohup docker -d &
 
-    #    - name: Runs app
-    #      shell: nohup nodejs /home/ubuntu/Try-2-Learn/bin/www 
+        - name: "Instalar forever (para arrancar la aplicación con NodeJS)."
+          npm: name=forever global=yes state=latest
+
+        - name: "Comprobar si hay ya alguna aplicación con NodeJS"
+          command: forever list
+          register: forever_list
+          changed_when: false
+
+        - name: "Start Try-2-Learn."
+          command: forever start /home/ubuntu/Try-2-Learn/bin/www
+          when: "forever_list.stdout.find('/path/to/app.js') == -1"
 
 Con esto tendríamos instaladas las dependencias de la aplicación para que funcione correctamente.
 
