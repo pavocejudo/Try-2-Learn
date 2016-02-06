@@ -18,6 +18,7 @@ Tabla de contenidos
         * [Otros aspectos a tener en cuenta](#otros-aspectos-a-tener-en-cuenta)
         * [Aprovisionando la máquina](#aprovisionando-la-máquina)
         * [Ya entiendo... ¿Entonces qué hago?](#ya-entiendo...-¿entonces-qué-hago?)
+          * [Puertos](#puertos)
       * [Despliegue en PaaS Heroku](#despliegue-en-paas-heroku)
       * [Dockerhub](#dockerhub)
 
@@ -186,6 +187,18 @@ Estos parámetros pueden ser modificados, la imagen de ubuntu se adapta bien a l
 
       region.ami = 'ami-35143705'
       region.instance_type = 't2.micro'
+
+##### Puertos
+Si se desea servir la aplicación por un puerto diferente al 80, debemos modificar el puerto en la aplicación así como añadir una regla en AWS, a continuación se muestra un ejemplo para usar el 3001:
+
+    Fichero Try-2-Learn/bin/www, línea 15
+    var port = normalizePort(process.env.PORT || '3001');
+
+    Nueva regla en el security_group de AWS
+    Inbound section
+    Type Protocol Port Range Source
+    HTTP TCP      3001       0.0.0.0/0
+    
 
 #### Aprovisionando la máquina
 Se hace uso de Ansible para el aprovisionamiento. Como vemos en el Vagrantfile se incluye una parte no mencionada dedicada al aprovisionamiento con Ansible. Esta parte hace uso del siguiente playbook:
