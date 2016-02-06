@@ -192,10 +192,12 @@ Estos parámetros pueden ser modificados, la imagen de ubuntu se adapta bien a l
 ##### Puertos
 Si se desea servir la aplicación por un puerto diferente al 80, debemos modificar el puerto en la aplicación así como añadir una regla en AWS, a continuación se muestra un ejemplo para usar el 3001:
 
-    Fichero Try-2-Learn/bin/www, línea 15
+*Fichero Try-2-Learn/bin/www, línea 15*
+
     var port = normalizePort(process.env.PORT || '3001');
 
-    Nueva regla en el security_group de AWS
+*Nueva regla en el security_group de AWS*
+
     Inbound section
     Type Protocol Port Range Source
     HTTP TCP      3001       0.0.0.0/0
