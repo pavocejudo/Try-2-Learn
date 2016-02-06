@@ -236,6 +236,9 @@ Se hace uso de Ansible para el aprovisionamiento. Como vemos en el Vagrantfile s
         - name: "Instalar forever (para arrancar la aplicación con NodeJS)."
           npm: name=forever global=yes state=latest
 
+        - name: Symlink nodejs -> node
+          file: src=/usr/bin/nodejs dest=/usr/bin/node state=link
+
         - name: "Comprobar si hay ya alguna aplicación con NodeJS"
           command: forever list
           register: forever_list
@@ -243,7 +246,7 @@ Se hace uso de Ansible para el aprovisionamiento. Como vemos en el Vagrantfile s
 
         - name: "Start Try-2-Learn."
           command: forever start /home/ubuntu/Try-2-Learn/bin/www
-          when: "forever_list.stdout.find('/path/to/app.js') == -1"
+          when: "forever_list.stdout.find('/home/ubuntu/Try-2-Learn/bin/www') == -1"
 
 Con esto tendríamos instaladas las dependencias de la aplicación para que funcione correctamente.
 
