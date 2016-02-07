@@ -176,6 +176,12 @@ Para configurar las variables de entorno citadas anteriormente podemos realizar 
     echo SECRET_ACCESS_KEY=YourSecret >> .env
     echo PRIVATE_KEY_PATH=pathToYourCert.pem >> .env
 
+    |_
+      |_env.sh
+      |_Vagrantfile
+      |_.env
+      |_playbook.yml
+
 2.Exportar a mano y sólo para esa sesión de shell:
 
     export ACCESS_KEY_ID=yourAccessKey
