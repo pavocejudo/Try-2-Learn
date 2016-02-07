@@ -124,6 +124,8 @@ Podemos reproducir el entorno de la aplicación completamente en una instancia E
      
       config.vm.box = "dummybox-aws"
 
+      config.env.enable
+
       config.vm.hostname = "try2learn"
       config.vm.provider :aws do |aws, override|
      
