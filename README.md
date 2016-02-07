@@ -171,10 +171,10 @@ Para configurar las variables de entorno citadas anteriormente podemos realizar 
 
 1. Ejecutar este script rellenando los campos de las variables previamente:
 
-    #! /bin/bash
-    echo ACCESS_KEY_ID=yourAccessKey > .env
-    echo SECRET_ACCESS_KEY=YourSecret >> .env
-    echo PRIVATE_KEY_PATH=pathToYourCert.pem >> .env
+        #! /bin/bash
+        echo ACCESS_KEY_ID=yourAccessKey > .env
+        echo SECRET_ACCESS_KEY=YourSecret >> .env
+        echo PRIVATE_KEY_PATH=pathToYourCert.pem >> .env
 
 2. Exportar a mano y sólo para esa sesión de shell:
 
