@@ -4,6 +4,8 @@ Vagrant.configure(2) do |config|
  
   config.vm.box = "dummybox-aws"
 
+  config.env.enable
+
   config.vm.hostname = "try2learn"
   config.vm.provider :aws do |aws, override|
  

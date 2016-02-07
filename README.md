@@ -292,8 +292,10 @@ Con esto tendríamos instaladas las dependencias de la aplicación para que func
 #### Ya entiendo... ¿Entonces qué hago?
 Para un correcto despliegue se usarán las siguientes versiones:
 
-    Vagrant 1.7.4
-    Ansible 1.6
+    -Vagrant 1.7.4
+        |_plugin aws
+        |_plugin env
+    -Ansible 1.6
 
 Para su instalación se recomienda por un lado usar gemas de Ruby con Vagrant y pip para Ansible.
 
@@ -304,6 +306,11 @@ Para su instalación se recomienda por un lado usar gemas de Ruby con Vagrant y 
 [https://pypi.python.org/pypi/pip](https://pypi.python.org/pypi/pip)
 
 [www.ansible.com](www.ansible.com)
+
+Para instalar los plugins de Vagrant:
+
+    vagrant plugin install vagrant-env
+    vagrant plugin install vagrant-aws
 
 Disponiendo únicamente de los ficheros Vagrantfile y playbook.yml podríamos desplegar sin problemas en AWS, con ambos ficheros bajo el mismo directorio, por ejemplo:
 
