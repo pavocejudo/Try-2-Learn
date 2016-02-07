@@ -166,6 +166,25 @@ aws.access_key_id y aws.secret_access_key son sus claves que puede encontrar a t
 
 private_key_path se refiere a la ruta hacia su certificado .pem de AWS.
 
+##### Variables de entorno
+Para configurar las variables de entorno citadas anteriormente podemos realizar dos cosas:
+
+1. Ejecutar este script rellenando los campos de las variables previamente:
+
+    #! /bin/bash
+    echo ACCESS_KEY_ID=yourAccessKey > .env
+    echo SECRET_ACCESS_KEY=YourSecret >> .env
+    echo PRIVATE_KEY_PATH=pathToYourCert.pem >> .env
+
+2. Exportar a mano y sólo para esa sesión de shell:
+
+    export ACCESS_KEY_ID=yourAccessKey
+    export SECRET_ACCESS_KEY=YourSecret
+    export PRIVATE_KEY_PATH=pathToYourCert.pem
+
+Estos parámetros se han puesto como variables de entorno por ser esenciales, pero pueden cambiarse los demás como puede ser el tipo de instancia usando el mismo método!
+
+#### Otros aspectos a tener en cuenta
 El tipo de instancia creada en AWS tendría como sistema operativo:
 
     ubuntu-trusty-14.04-amd64
@@ -179,7 +198,6 @@ Estos parámetros pueden ser modificados, la imagen de ubuntu se adapta bien a l
       region.ami = 'ami-35143705'
       region.instance_type = 't2.micro'
 
-#### Otros aspectos a tener en cuenta
 Se debe tener creado un security_groups, en este caso tiene el nombre de launch-wizard-3, pero puede tener cualquier otro nombre, que exista en su cuenta de AWS y que además tenga la siguientes características:
 
 Inbound
