@@ -12,7 +12,7 @@ def downloadAll():
 	fabric.sudo('apt-get update')
 	fabric.sudo('apt-cache policy docker-engine')
 	fabric.sudo('apt-get install -y curl build-essential git nodejs npm docker-engine forever')
-	fabric.sudo('git clone https://github.com/jesusgn90/Try-2-Learn.git')
+	fabric.sudo('git clone https://github.com/jesusgn90/Try-2-Learn.git /home/ubuntu/Try-2-Learn/')
 	fabric.sudo('ln -s /usr/bin/nodejs /usr/bin/node')
 
 # Instalar los paquetes del package.json para la aplicacion
