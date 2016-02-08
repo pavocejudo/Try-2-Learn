@@ -16,6 +16,7 @@ Tabla de contenidos
         * [Nuevas herramientas añadidas](#nuevas-herramientas-añadidas)
       * [Quay.io](#quay.io)
       * [Publicado en Amazon Web Services](#publicado-en-amazon-web-services)
+      * [Fabric](#fabric)
       * [Despliegue en Amazon Web Services](#despliegue-en-amazon-web-services)
         * [Otros aspectos a tener en cuenta](#otros-aspectos-a-tener-en-cuenta)
           * [Scripts para gestionar security_groups AWS](#scripts-para-gestionar-security_groups-aws)
@@ -353,6 +354,72 @@ De esta forma se realizarán los siguientes pasos:
 
     1. Creación de instancia del tipo especificado en el Vagrantfile
     2. Aprovisionamiento mediante Ansible, a través del playbook.yml
+
+### Fabric
+Podemos usar Fabric para desplegar en AWS. Primero de todo debemos por un lado añadir nuestro certificado .pem de Amazon:
+
+    ssh-add "certificado.pem"
+
+A continuación instalamos Fabric:
+
+    pip install fabric
+
+Usando como base este fabfile podemos realizar todas las tareas necesarias:
+
+    from fabric.api import run, local, hosts, cd
+    from fabric.contrib import django
+
+    #infomacion del host
+    def informacion_host():
+        run('uname -a')
+
+    #descarga de la aplicacion utilizando git
+    def downloadAll():
+	    run('sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D')
+	    run('sudo echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" >> /etc/apt/sources.list.d/docker.list')
+	    run('sudo apt-get update')
+	    run('sudo apt-cache policy docker-engine')
+	    run('sudo apt-get install -y curl build-essential git nodejs npm docker-engine forever')
+	    run('sudo git clone https://github.com/jesusgn90/Try-2-Learn.git')
+	    run('sudo ln -s /usr/bin/nodejs /usr/bin/node')
+
+    # Instalar los paquetes del package.json para la aplicación
+    def npmInstall():
+	    run('cd /home/ubuntu/Try-2-Learn/ && npm install')
+
+    # Comprobar si hay ya alguna aplicacion con NodeJS
+    def foreverList():
+	    run('sudo forever list')
+
+    #Ejecucion de test
+    def test():
+	    run('cd /home/ubuntu/Try-2-Learn/ && grunt test')
+
+    #Ejecucion de la aplicacion
+    def start():
+	    run('cd /home/ubuntu/Try-2-Learn/ && forever start bin/www')
+
+    #Hard Reset
+    def hardReset():
+	    run('sudo killall -KILL nodejs')
+        run('sudo rm -r /home/ubuntu/Try-2-Learn')
+
+    # Curl 80
+    def request():
+	    run('curl http://0.0.0.0:80/')
+
+#### Uso de Fabric
+El uso básico de Fabric una vez configurado es el siguiente:
+
+    fab -H remote_user@remote_host operation
+
+Por tanto si queremos desplegar y dejar ejecutando Try-2-Learn:
+
+    fab -H ubuntu@ipAWS downloadAll
+    fab -H ubuntu@ipAWS npmInstall
+    fab -H ubuntu@ipAWS start
+
+
 
 ### Despliegue en PaaS Heroku (ACTUALMENTE NO SE USA, MIGRADO A AMAZON)
 He optado por Heroku por que lo nombraban en los ejercicios, en el temario, comencé a usarlo y con él me he quedado pues me resulta cómodo y sencillo de usar.
