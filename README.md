@@ -366,47 +366,51 @@ A continuación instalamos Fabric:
 
 Usando como base este fabfile podemos realizar todas las tareas necesarias:
 
-    from fabric.api import run, local, hosts, cd
-    from fabric.contrib import django
+    import fabric.api as fabric
+    import os, sys, glob
 
-    #infomacion del host
-    def informacion_host():
-        run('uname -a')
+    # Informacion 
+    def getami():
+        fabric.sudo('whoami')
 
-    #descarga de la aplicacion utilizando git
+    # Preparacion del entorno, clone de la aplicacion
     def downloadAll():
-	    run('sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D')
-	    run('sudo echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" >> /etc/apt/sources.list.d/docker.list')
-	    run('sudo apt-get update')
-	    run('sudo apt-cache policy docker-engine')
-	    run('sudo apt-get install -y curl build-essential git nodejs npm docker-engine forever')
-	    run('sudo git clone https://github.com/jesusgn90/Try-2-Learn.git')
-	    run('sudo ln -s /usr/bin/nodejs /usr/bin/node')
+	    fabric.sudo('apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D')
+	    fabric.sudo("echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list")
+	    fabric.sudo('apt-get update')
+	    fabric.sudo('apt-cache policy docker-engine')
+	    fabric.sudo('apt-get install -y curl build-essential git nodejs npm docker-engine forever')
+	    fabric.sudo('git clone https://github.com/jesusgn90/Try-2-Learn.git')
+	    fabric.sudo('ln -s /usr/bin/nodejs /usr/bin/node')
 
-    # Instalar los paquetes del package.json para la aplicación
+    # Instalar los paquetes del package.json para la aplicacion
     def npmInstall():
-	    run('cd /home/ubuntu/Try-2-Learn/ && npm install')
+        fabric.sudo('cd /home/ubuntu/Try-2-Learn/ && npm install')
 
     # Comprobar si hay ya alguna aplicacion con NodeJS
     def foreverList():
-	    run('sudo forever list')
+        fabric.sudo('forever list')
 
-    #Ejecucion de test
+    # Ejecucion de test
     def test():
-	    run('cd /home/ubuntu/Try-2-Learn/ && grunt test')
+        fabric.sudo('cd /home/ubuntu/Try-2-Learn/ && grunt test')
 
-    #Ejecucion de la aplicacion
+    # Ejecucion de la aplicacion
     def start():
-	    run('cd /home/ubuntu/Try-2-Learn/ && forever start bin/www')
+        fabric.sudo('cd /home/ubuntu/Try-2-Learn/ && forever start bin/www')
 
-    #Hard Reset
-    def hardReset():
-	    run('sudo killall -KILL nodejs')
-        run('sudo rm -r /home/ubuntu/Try-2-Learn')
+    def killNodeJS():
+        fabric.sudo('killall -KILL nodejs')
+
+    def rmTry2Learn():
+        fabric.sudo('rm -r /home/ubuntu/Try-2-Learn')
+
+    def rmRepo():
+	    fabric.sudo('rm /etc/apt/sources.list.d/docker.list')
 
     # Curl 80
     def request():
-	    run('curl http://0.0.0.0:80/')
+        fabric.sudo('curl http://0.0.0.0:80/')
 
 #### Uso de Fabric
 El uso básico de Fabric una vez configurado es el siguiente:
